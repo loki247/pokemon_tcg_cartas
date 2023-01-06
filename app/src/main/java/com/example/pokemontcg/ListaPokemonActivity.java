@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -67,6 +68,19 @@ public class ListaPokemonActivity extends Activity {
                     if(jsonArray.length() > 0){
                         pokemonAdapter = new PokemonAdapter(ListaPokemonActivity.this, arrayPokemon);
                         listaPokemon.setAdapter(pokemonAdapter);
+
+                        listaPokemon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                try {
+                                    Intent intent = new Intent(ListaPokemonActivity.this, CartaActivity.class);
+                                    intent.putExtra("id", jsonArray.getJSONObject(position).getString("id"));
+                                    startActivity(intent);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                     }else{
                         Intent intent = new Intent(ListaPokemonActivity.this, MainActivity.class);
                         intent.putExtra("sinResultados", "No se encontraron resultados para este Pokémon");

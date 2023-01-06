@@ -12,7 +12,7 @@
         android:orientation="vertical"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-3dp">
+        tools:layout_editor_absoluteY="-1dp">
 
         <ImageView
             android:layout_width="166dp"
@@ -22,20 +22,22 @@
 
         <TextView
             android:id="@+id/labelNombre"
-            android:layout_width="93dp"
-            android:layout_height="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:text="Nombre:"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:translationX="15dp" />
+            android:textStyle="bold" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/nombrePokemon"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:translationX="15dp" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:hint="Buscar Pokémon"
+            android:inputType="text" />
 
         <Button
             android:id="@+id/btnBuscar"
