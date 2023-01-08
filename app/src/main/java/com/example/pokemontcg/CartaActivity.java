@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,8 +37,13 @@ public class CartaActivity extends Activity {
 
     private TextView tituloNombre;
     private ImageView imgCarta;
-    private TextView tipoCarta;
+    private TextView claseCarta;
     private TextView hpCarta;
+    private TextView faseCarta;
+    private TextView tipoCarta;
+    private TextView preEvolucionCarta;
+    private ListView evolucionCarta;
+    private TextView numeroCarta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,24 +58,56 @@ public class CartaActivity extends Activity {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-
                     JSONObject dataCarta = new JSONObject(jsonObject.getString("data"));
 
                     tituloNombre = findViewById(R.id.tituloNombre);
                     tituloNombre.setText(dataCarta.getString("name"));
 
                     JSONObject urlObject = new JSONObject(dataCarta.getString("images"));
-
                     String urlImg = urlObject.getString("large");
 
                     imgCarta = findViewById(R.id.imgCarta);
                     Picasso.get().load(urlImg).into(imgCarta);
 
-                    tipoCarta = findViewById(R.id.tipoCarta);
-                    tipoCarta.setText(dataCarta.getString("supertype"));
+                    claseCarta = findViewById(R.id.claseCarta);
+                    claseCarta.setText(dataCarta.getString("supertype"));
 
                     hpCarta = findViewById(R.id.hpCarta);
                     hpCarta.setText(dataCarta.getString("hp"));
+
+                    JSONArray jsonArraySubtypes = new JSONArray(dataCarta.getString("subtypes"));
+
+                    faseCarta = findViewById(R.id.faseCarta);
+                    faseCarta.setText(jsonArraySubtypes.get(0).toString());
+
+                    JSONArray jsonArrayTypes = new JSONArray(dataCarta.getString("types"));
+
+                    tipoCarta = findViewById(R.id.tipoCarta);
+                    tipoCarta.setText(jsonArrayTypes.get(0).toString());
+
+                    preEvolucionCarta = findViewById(R.id.preevolucionCarta);
+                    preEvolucionCarta.setText(!dataCarta.isNull("evolvesFrom") ? dataCarta.getString("evolvesFrom") : "-");
+
+                    if(!dataCarta.isNull("evolvesTo")){
+                        JSONArray jsonArrayEvolucion = new JSONArray(dataCarta.getString("evolvesTo"));
+                        evolucionCarta = findViewById(R.id.evolucionCarta);
+                        ArrayList<String> evoluciones = new ArrayList<>();
+
+                        if(jsonArrayEvolucion != null){
+                            for (int i = 0; i < jsonArrayEvolucion.length(); i++){
+                                evoluciones.add(jsonArrayEvolucion.getString(i).toString());
+                            }
+
+                            ArrayAdapter<String> evolucionesAdapter = new ArrayAdapter<String>(CartaActivity.this, android.R.layout.simple_list_item_1, evoluciones);
+                            evolucionCarta.setAdapter(evolucionesAdapter);
+                        }
+                    }
+
+                    JSONObject jsonObjectSet = new JSONObject(dataCarta.getString("set"));
+
+                    numeroCarta = findViewById(R.id.numeroCarta);
+                    numeroCarta.setText(dataCarta.getString("number") + "/" + jsonObjectSet.getString("printedTotal"));
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

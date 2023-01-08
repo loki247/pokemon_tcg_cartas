@@ -49,6 +49,14 @@ public class ListaPokemonActivity extends Activity {
     }
 
     private void getDataPokemon(String nombre) {
+        if(nombre.equalsIgnoreCase("Mr. Mime")){
+            nombre = "mime";
+        }
+
+        if(nombre.equalsIgnoreCase("Mr. Rime")){
+            nombre = "rime";
+        }
+
         mRequestQueue = Volley.newRequestQueue(this);
         mStringRequest = new StringRequest(Request.Method.GET, urlApi + nombre, new Response.Listener<String>() {
             @Override
