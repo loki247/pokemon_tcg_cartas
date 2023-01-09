@@ -42,7 +42,9 @@ public class CartaActivity extends Activity {
     private TextView tipoCarta;
     private TextView preEvolucionCarta;
     private ListView evolucionCarta;
+    private ImageView edicionCarta;
     private TextView numeroCarta;
+    private TextView rarezaCarta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,9 +105,16 @@ public class CartaActivity extends Activity {
                     }
 
                     JSONObject jsonObjectSet = new JSONObject(dataCarta.getString("set"));
+                    JSONObject objectImagenesEdicion = jsonObjectSet.getJSONObject("images");
+
+                    edicionCarta = findViewById(R.id.edicionCarta);
+                    Picasso.get().load(objectImagenesEdicion.getString("logo")).into(edicionCarta);
 
                     numeroCarta = findViewById(R.id.numeroCarta);
                     numeroCarta.setText(dataCarta.getString("number") + "/" + jsonObjectSet.getString("printedTotal"));
+
+                    rarezaCarta = findViewById(R.id.rarezaCarta);
+                    rarezaCarta.setText(dataCarta.getString("rarity"));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
