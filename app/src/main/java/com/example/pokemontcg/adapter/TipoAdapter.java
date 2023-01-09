@@ -23,16 +23,17 @@ public class TipoAdapter extends BaseAdapter {
     private ArrayList<String> listaTipos = new ArrayList<>();
 
     public TipoAdapter(Context context) {
-        listaTipos.add("Acero");
-        listaTipos.add("Agua");
-        listaTipos.add("Fuego");
+        listaTipos.add("Incolora");
+        listaTipos.add("Oscura");
+        listaTipos.add("Dragón");
         listaTipos.add("Hada");
         listaTipos.add("Lucha");
-        listaTipos.add("Oscura");
+        listaTipos.add("Fuego");
         listaTipos.add("Planta");
-        listaTipos.add("Psiquica");
         listaTipos.add("Rayo");
-        listaTipos.add("Incolora");
+        listaTipos.add("Acero");
+        listaTipos.add("Psiquica");
+        listaTipos.add("Agua");
 
         this.context = context;
     }
@@ -61,7 +62,12 @@ public class TipoAdapter extends BaseAdapter {
         nombrePokemon.setText(tipo);
 
         ImageView imgTipo = view.findViewById(R.id.img_tipo);
-        imgTipo.setImageResource(view.getResources().getIdentifier("com.example.pokemontcg:drawable/" + "energia_" + listaTipos.get(i).toLowerCase(), null, null));
+        if(listaTipos.get(i).equalsIgnoreCase("dragón")){
+            imgTipo.setImageResource(view.getResources().getIdentifier("com.example.pokemontcg:drawable/" + "energia_dragon", null, null));
+        }else{
+            imgTipo.setImageResource(view.getResources().getIdentifier("com.example.pokemontcg:drawable/" + "energia_" + listaTipos.get(i).toLowerCase(), null, null));
+        }
+
 
         return view;
     }
