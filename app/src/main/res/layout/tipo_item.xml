@@ -27,7 +27,7 @@
         android:background="@android:color/transparent"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="#000000"
         android:textSize="15sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor = "?android:textColorPrimary" />
 </LinearLayout>
