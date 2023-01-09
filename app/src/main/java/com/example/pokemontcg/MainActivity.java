@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> listaSubtipos = new ArrayList<>();
         listaSubtipos.add("vmax");
         listaSubtipos.add("mega");
+        listaSubtipos.add("ex");
+        listaSubtipos.add("gx");
 
         getDataCartasTipo(listaSubtipos);
     }
@@ -107,6 +109,12 @@ public class MainActivity extends AppCompatActivity {
                             cantidades.setText(response.getString("totalCount"));
                         }else if(tipo.equalsIgnoreCase("mega")){
                             cantidades = findViewById(R.id.cantMega);
+                            cantidades.setText(response.getString("totalCount"));
+                        }else if(tipo.equalsIgnoreCase("ex")){
+                            cantidades = findViewById(R.id.cantEx);
+                            cantidades.setText(response.getString("totalCount"));
+                        }else if(tipo.equalsIgnoreCase("gx")){
+                            cantidades = findViewById(R.id.cantGx);
                             cantidades.setText(response.getString("totalCount"));
                         }
                     } catch (JSONException e) {
