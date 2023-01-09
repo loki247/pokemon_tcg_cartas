@@ -8,7 +8,7 @@
     android:gravity="center">
 
     <ImageView
-        android:id="@+id/img_carta"
+        android:id="@+id/img_tipo"
         android:layout_width="44dp"
         android:layout_height="80dp"
         android:layout_gravity="center|left"
@@ -20,14 +20,14 @@
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <TextView
-        android:id="@+id/nombre_pokemon"
+        android:id="@+id/nombre_tipo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor = "?android:textColorPrimary"
         android:textSize="15sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor = "?android:textColorPrimary" />
 </LinearLayout>

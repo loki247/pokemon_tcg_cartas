@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -32,24 +33,34 @@ public class ListaPokemonActivity extends Activity {
 
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
-    private String urlApi = "https://api.pokemontcg.io/v2/cards?q=name:";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_pokemon);
 
-        String nombre = getIntent().getStringExtra("nombrePokemon").toString();
+        String valor = getIntent().getStringExtra("valor").toString();
+        String tipoBusqueda = getIntent().getStringExtra("tipoBusqueda").toString();
 
         listaPokemon = findViewById(R.id.lista);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-        getDataPokemon(nombre);
+        getDataPokemon(valor, tipoBusqueda);
     }
 
-    private void getDataPokemon(String nombre) {
+    private void getDataPokemon(String valor, String tipoBusqueda) {
+        String url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":" + valor;
+
+        if(valor.equalsIgnoreCase("Mr. Mime")){
+            valor = "mime";
+        }
+
+        if(valor.equalsIgnoreCase("Mr. Rime")){
+            valor = "rime";
+        }
+
         mRequestQueue = Volley.newRequestQueue(this);
-        mStringRequest = new StringRequest(Request.Method.GET, urlApi + nombre, new Response.Listener<String>() {
+        mStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -67,6 +78,19 @@ public class ListaPokemonActivity extends Activity {
                     if(jsonArray.length() > 0){
                         pokemonAdapter = new PokemonAdapter(ListaPokemonActivity.this, arrayPokemon);
                         listaPokemon.setAdapter(pokemonAdapter);
+
+                        listaPokemon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                try {
+                                    Intent intent = new Intent(ListaPokemonActivity.this, CartaActivity.class);
+                                    intent.putExtra("id", jsonArray.getJSONObject(position).getString("id"));
+                                    startActivity(intent);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                     }else{
                         Intent intent = new Intent(ListaPokemonActivity.this, MainActivity.class);
                         intent.putExtra("sinResultados", "No se encontraron resultados para este Pokémon");
