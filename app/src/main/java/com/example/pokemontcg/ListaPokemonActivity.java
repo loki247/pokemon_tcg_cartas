@@ -33,32 +33,34 @@ public class ListaPokemonActivity extends Activity {
 
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
-    private String urlApi = "https://api.pokemontcg.io/v2/cards?q=name:";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_pokemon);
 
-        String nombre = getIntent().getStringExtra("nombrePokemon").toString();
+        String valor = getIntent().getStringExtra("valor").toString();
+        String tipoBusqueda = getIntent().getStringExtra("tipoBusqueda").toString();
 
         listaPokemon = findViewById(R.id.lista);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-        getDataPokemon(nombre);
+        getDataPokemon(valor, tipoBusqueda);
     }
 
-    private void getDataPokemon(String nombre) {
-        if(nombre.equalsIgnoreCase("Mr. Mime")){
-            nombre = "mime";
+    private void getDataPokemon(String valor, String tipoBusqueda) {
+        String url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":" + valor;
+
+        if(valor.equalsIgnoreCase("Mr. Mime")){
+            valor = "mime";
         }
 
-        if(nombre.equalsIgnoreCase("Mr. Rime")){
-            nombre = "rime";
+        if(valor.equalsIgnoreCase("Mr. Rime")){
+            valor = "rime";
         }
 
         mRequestQueue = Volley.newRequestQueue(this);
-        mStringRequest = new StringRequest(Request.Method.GET, urlApi + nombre, new Response.Listener<String>() {
+        mStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

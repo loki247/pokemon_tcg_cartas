@@ -32,6 +32,7 @@ public class TipoAdapter extends BaseAdapter {
         listaTipos.add("Planta");
         listaTipos.add("Psiquica");
         listaTipos.add("Rayo");
+        listaTipos.add("Incolora");
 
         this.context = context;
     }

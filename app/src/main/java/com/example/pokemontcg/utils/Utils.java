@@ -893,7 +893,19 @@ public class Utils {
             "Eternatus",
     };
 
+   public String[] listadoTipos = {"Incolora", "Oscura", "Dragón", "Hada", "Lucha", "Fuego", "Planta", "Rayo", "Acero", "Psiquica", "Agua",};
+
+   public String[] listadoTiposIng = {"Colorless", "Darkness", "Dragon", "Fairy", "Fighting", "Fire", "Grass", "Lightning", "Metal", "Psychic", "Water"};
+
     public String[] getListadoPokemon() {
         return listadoPokemon;
+    }
+
+    public String[] getListadoTipos() {
+        return listadoTipos;
+    }
+
+    public String[] getListadoTiposIng() {
+        return listadoTiposIng;
     }
 }

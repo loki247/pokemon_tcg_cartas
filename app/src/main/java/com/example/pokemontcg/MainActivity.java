@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
         String nombre = nombrePokemon.getText().toString();
         if(!nombre.isEmpty()){
             Intent intent = new Intent(this, ListaPokemonActivity.class);
-            intent.putExtra("nombrePokemon", nombrePokemon.getText().toString());
+            intent.putExtra("valor", nombrePokemon.getText().toString());
+            intent.putExtra("tipoBusqueda", "name");
             startActivity(intent);
         }else{
             Toast toast = Toast.makeText(this, "Debes ingresar el nombre de un Pokémon", Toast.LENGTH_SHORT);
