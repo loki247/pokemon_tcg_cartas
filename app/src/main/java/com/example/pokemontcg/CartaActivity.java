@@ -34,7 +34,6 @@ public class CartaActivity extends Activity {
     private StringRequest mStringRequest;
     private String urlApi = "https://api.pokemontcg.io/v2/cards/";
 
-
     private TextView tituloNombre;
     private ImageView imgCarta;
     private TextView claseCarta;
