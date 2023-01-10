@@ -48,7 +48,7 @@ public class ListaPokemonActivity extends Activity {
     }
 
     private void getDataPokemon(String valor, String tipoBusqueda) {
-        String url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":" + valor;
+        String url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":" + valor + "&orderBy=number";
 
         if(valor.equalsIgnoreCase("Mr. Mime")){
             valor = "mime";
