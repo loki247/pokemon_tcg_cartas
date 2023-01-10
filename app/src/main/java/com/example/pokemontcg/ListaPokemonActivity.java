@@ -50,12 +50,24 @@ public class ListaPokemonActivity extends Activity {
     private void getDataPokemon(String valor, String tipoBusqueda) {
         String url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":" + valor + "&orderBy=number";
 
+        if(valor.equalsIgnoreCase("Mime Jr.")){
+            url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":mime&q=nationalPokedexNumbers:439&orderBy=number";
+        }
+
         if(valor.equalsIgnoreCase("Mr. Mime")){
-            valor = "mime";
+            url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":mime&q=nationalPokedexNumbers:122&orderBy=number";
         }
 
         if(valor.equalsIgnoreCase("Mr. Rime")){
-            valor = "rime";
+            url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":rime&orderBy=number";
+        }
+
+        if(valor.equalsIgnoreCase("Nidoran♀")){
+            url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":nidoran&q=nationalPokedexNumbers:29&orderBy=number";
+        }
+
+        if(valor.equalsIgnoreCase("Nidoran♂")){
+            url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":nidoran&q=nationalPokedexNumbers:32&orderBy=number";
         }
 
         mRequestQueue = Volley.newRequestQueue(this);
