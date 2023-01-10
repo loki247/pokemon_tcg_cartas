@@ -40,7 +40,6 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     //private EditText nombrePokemon;
-    private Button btnBuscar;
     private AutoCompleteTextView nombrePokemon;
 
     private RequestQueue mRequestQueue;
@@ -64,15 +63,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         nombrePokemon = (AutoCompleteTextView) findViewById(R.id.nombrePokemon);
-
         String[] lista = new Utils().getListadoPokemon();
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, lista);
-
-        nombrePokemon.setThreshold(1);//will start working from first character
-        nombrePokemon.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+        nombrePokemon.setThreshold(1);
+        nombrePokemon.setAdapter(adapter);
 
         ArrayList<String> listaSubtipos = new ArrayList<>();
+        listaSubtipos.add("v");
+        listaSubtipos.add("vstar");
         listaSubtipos.add("vmax");
         listaSubtipos.add("mega");
         listaSubtipos.add("ex");
@@ -104,7 +102,13 @@ public class MainActivity extends AppCompatActivity {
             mJsonRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                 public void onResponse(JSONObject response) {
                     try {
-                        if(tipo.equalsIgnoreCase("vmax")){
+                        if(tipo.equalsIgnoreCase("v")){
+                            cantidades = findViewById(R.id.cantV);
+                            cantidades.setText(response.getString("totalCount"));
+                        }else if(tipo.equalsIgnoreCase("vstar")){
+                            cantidades = findViewById(R.id.cantVstar);
+                            cantidades.setText(response.getString("totalCount"));
+                        }else if(tipo.equalsIgnoreCase("vmax")){
                             cantidades = findViewById(R.id.cantVmax);
                             cantidades.setText(response.getString("totalCount"));
                         }else if(tipo.equalsIgnoreCase("mega")){
@@ -138,6 +142,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void BusquedaTipoActivity(View view) {
         Intent intent = new Intent(this, BusquedaTipoActivity.class);
+        startActivity(intent);
+    }
+
+    public void BusquedaEdicionActivity(View view) {
+        Intent intent = new Intent(this, BusquedaEdicionActivity.class);
         startActivity(intent);
     }
 }

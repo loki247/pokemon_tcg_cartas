@@ -1,6 +1,5 @@
 package com.example.pokemontcg;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,7 +41,7 @@ public class ListaPokemonActivity extends Activity {
         String valor = getIntent().getStringExtra("valor").toString();
         String tipoBusqueda = getIntent().getStringExtra("tipoBusqueda").toString();
 
-        listaPokemon = findViewById(R.id.lista);
+        listaPokemon = findViewById(R.id.listaEdiciones);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
         getDataPokemon(valor, tipoBusqueda);

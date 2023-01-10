@@ -44,7 +44,7 @@
 
             <Button
                 android:id="@+id/btnBuscar"
-                android:layout_width="150dp"
+                android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:onClick="ListaPokemonActivity"
@@ -71,12 +71,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="BusquedaEdicionActivity"
+                android:text="Buscar por Edición"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:layout_width="144dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -86,7 +105,7 @@
 
             <TextView
                 android:id="@+id/cantVmax"
-                android:layout_width="269dp"
+                android:layout_width="255dp"
                 android:layout_height="30dp"
                 android:text="obteniendo datos..."
                 android:textAlignment="center"
@@ -100,17 +119,17 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="131dp"
+                android:layout_width="143dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="Cartas Mega:"
+                android:text="Cartas V:"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/cantMega"
-                android:layout_width="269dp"
+                android:id="@+id/cantV"
+                android:layout_width="255dp"
                 android:layout_height="30dp"
                 android:text="obteniendo datos..."
                 android:textAlignment="center"
@@ -124,7 +143,55 @@
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="132dp"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Cartas V-STAR:"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cantVstar"
+                android:layout_width="255dp"
+                android:layout_height="30dp"
+                android:text="obteniendo datos..."
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="141dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Cartas Mega:"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cantMega"
+                android:layout_width="255dp"
+                android:layout_height="30dp"
+                android:text="obteniendo datos..."
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="141dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -134,7 +201,7 @@
 
             <TextView
                 android:id="@+id/cantEx"
-                android:layout_width="269dp"
+                android:layout_width="255dp"
                 android:layout_height="30dp"
                 android:text="obteniendo datos..."
                 android:textAlignment="center"
@@ -145,8 +212,8 @@
             android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="132dp"
+            android:id="@+id/textView6"
+            android:layout_width="141dp"
             android:layout_height="30dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -156,7 +223,7 @@
 
         <TextView
             android:id="@+id/cantGx"
-            android:layout_width="269dp"
+            android:layout_width="255dp"
             android:layout_height="30dp"
             android:text="obteniendo datos..."
             android:textAlignment="center"
