@@ -132,34 +132,44 @@ public class CartaActivity extends Activity {
                         rarezaCarta.setText("-");
                     }
 
-                    JSONObject jsonObjectTcgPlayer = new JSONObject(dataCarta.getString("tcgplayer"));
-                    JSONObject objectPrecios = jsonObjectTcgPlayer.getJSONObject("prices");
-
-                    String precios = "";
-                    String precioNormal = "";
-                    String precioHolo = "";
-                    String precioReverseHolo = "";
-
                     precioCarta = findViewById(R.id.precioCarta);
-                    if(!objectPrecios.isNull("normal")){
-                        JSONObject objectHoloFoil = objectPrecios.getJSONObject("normal");
 
-                        precioNormal = "Normal: US$" + objectHoloFoil.getString("market") + "\r\n";
+                    if(!dataCarta.isNull("tcgplayer")){
+                        JSONObject jsonObjectTcgPlayer = new JSONObject(dataCarta.getString("tcgplayer"));
+                        JSONObject objectPrecios = jsonObjectTcgPlayer.getJSONObject("prices");
+
+                        String precioNormal = "";
+                        String precioHolo = "";
+                        String precioReverseHolo = "";
+
+                        if(!objectPrecios.isNull("normal")){
+                            JSONObject objectHoloFoil = objectPrecios.getJSONObject("normal");
+
+                            precioNormal = "Normal: US$" + objectHoloFoil.getString("market") + "\r\n";
+                        }
+
+                        if(!objectPrecios.isNull("holofoil")){
+                            JSONObject objectHoloFoil = objectPrecios.getJSONObject("holofoil");
+
+                            precioHolo = "Holo: US$" + objectHoloFoil.getString("market") + "\r\n";
+                        }
+
+                        if(!objectPrecios.isNull("reverseHolofoil")){
+                            JSONObject objectReverseHoloFoil = objectPrecios.getJSONObject("reverseHolofoil");
+
+                            precioReverseHolo = "Reverse Holo: US$" + objectReverseHoloFoil.getString("market");
+                        }
+
+                        if(!objectPrecios.isNull("normal") || !objectPrecios.isNull("holofoil") || !objectPrecios.isNull("reverseHolofoil")){
+                            precioCarta.setText(precioNormal + precioHolo + precioReverseHolo);
+                        }else{
+                            precioCarta.setText("-");
+                        }
+                    }else{
+                        precioCarta.setText("-");
                     }
 
-                    if(!objectPrecios.isNull("holofoil")){
-                        JSONObject objectHoloFoil = objectPrecios.getJSONObject("holofoil");
 
-                        precioHolo = "Holo: US$" + objectHoloFoil.getString("market") + "\r\n";
-                    }
-
-                    if(!objectPrecios.isNull("reverseHolofoil")){
-                        JSONObject objectReverseHoloFoil = objectPrecios.getJSONObject("reverseHolofoil");
-
-                        precioReverseHolo = "Reverse Holo: US$" + objectReverseHoloFoil.getString("market");
-                    }
-
-                    precioCarta.setText(precioNormal + precioHolo + precioReverseHolo);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
