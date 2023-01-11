@@ -41,7 +41,7 @@ public class CartaActivity extends Activity {
     private TextView faseCarta;
     private TextView tipoCarta;
     private TextView preEvolucionCarta;
-    private ListView evolucionCarta;
+    private TextView evolucionCarta;
     private ImageView edicionCarta;
     private TextView numeroCarta;
     private TextView rarezaCarta;
@@ -87,21 +87,32 @@ public class CartaActivity extends Activity {
                     tipoCarta.setText(jsonArrayTypes.get(0).toString());
 
                     preEvolucionCarta = findViewById(R.id.preevolucionCarta);
-                    preEvolucionCarta.setText(!dataCarta.isNull("evolvesFrom") ? dataCarta.getString("evolvesFrom") : "-");
+
+                    if(!dataCarta.isNull("evolvesFrom")){
+                        preEvolucionCarta.setText(dataCarta.getString("evolvesFrom"));
+                    }else{
+                        preEvolucionCarta.setText("-");
+                    }
+
+                    evolucionCarta = findViewById(R.id.evolucionCarta);
 
                     if(!dataCarta.isNull("evolvesTo")){
                         JSONArray jsonArrayEvolucion = new JSONArray(dataCarta.getString("evolvesTo"));
-                        evolucionCarta = findViewById(R.id.evolucionCarta);
-                        ArrayList<String> evoluciones = new ArrayList<>();
+                        //ArrayList<String> evoluciones = new ArrayList<>();
+                        String evoluciones = "";
 
-                        if(jsonArrayEvolucion != null){
-                            for (int i = 0; i < jsonArrayEvolucion.length(); i++){
-                                evoluciones.add(jsonArrayEvolucion.getString(i).toString());
-                            }
+                        for (int i = 0; i < jsonArrayEvolucion.length(); i++){
+                            evoluciones += jsonArrayEvolucion.getString(i).toString() + "/";
 
-                            ArrayAdapter<String> evolucionesAdapter = new ArrayAdapter<String>(CartaActivity.this, android.R.layout.simple_list_item_1, evoluciones);
-                            evolucionCarta.setAdapter(evolucionesAdapter);
+                            //evoluciones.add(jsonArrayEvolucion.getString(i).toString());
                         }
+
+                        //ArrayAdapter<String> evolucionesAdapter = new ArrayAdapter<String>(CartaActivity.this, android.R.layout.simple_list_item_1, evoluciones);
+                        //evolucionCarta.setAdapter(evolucionesAdapter);
+
+                        evolucionCarta.setText(evoluciones.substring(0, (evoluciones.length() -1)));
+                    }else{
+                        evolucionCarta.setText("-");
                     }
 
                     JSONObject jsonObjectSet = new JSONObject(dataCarta.getString("set"));
@@ -114,7 +125,11 @@ public class CartaActivity extends Activity {
                     numeroCarta.setText(dataCarta.getString("number") + "/" + jsonObjectSet.getString("printedTotal"));
 
                     rarezaCarta = findViewById(R.id.rarezaCarta);
-                    rarezaCarta.setText(dataCarta.getString("rarity"));
+                    if(!dataCarta.isNull("rarity")){
+                        rarezaCarta.setText(dataCarta.getString("rarity"));
+                    }else{
+                        rarezaCarta.setText("-");
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
