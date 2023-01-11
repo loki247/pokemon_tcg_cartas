@@ -45,6 +45,7 @@ public class CartaActivity extends Activity {
     private ImageView edicionCarta;
     private TextView numeroCarta;
     private TextView rarezaCarta;
+    private TextView precioCarta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,6 +132,34 @@ public class CartaActivity extends Activity {
                         rarezaCarta.setText("-");
                     }
 
+                    JSONObject jsonObjectTcgPlayer = new JSONObject(dataCarta.getString("tcgplayer"));
+                    JSONObject objectPrecios = jsonObjectTcgPlayer.getJSONObject("prices");
+
+                    String precios = "";
+                    String precioNormal = "";
+                    String precioHolo = "";
+                    String precioReverseHolo = "";
+
+                    precioCarta = findViewById(R.id.precioCarta);
+                    if(!objectPrecios.isNull("normal")){
+                        JSONObject objectHoloFoil = objectPrecios.getJSONObject("normal");
+
+                        precioNormal = "Normal: US$" + objectHoloFoil.getString("market") + "\r\n";
+                    }
+
+                    if(!objectPrecios.isNull("holofoil")){
+                        JSONObject objectHoloFoil = objectPrecios.getJSONObject("holofoil");
+
+                        precioHolo = "Holo: US$" + objectHoloFoil.getString("market") + "\r\n";
+                    }
+
+                    if(!objectPrecios.isNull("reverseHolofoil")){
+                        JSONObject objectReverseHoloFoil = objectPrecios.getJSONObject("reverseHolofoil");
+
+                        precioReverseHolo = "Reverse Holo: US$" + objectReverseHoloFoil.getString("market");
+                    }
+
+                    precioCarta.setText(precioNormal + precioHolo + precioReverseHolo);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
