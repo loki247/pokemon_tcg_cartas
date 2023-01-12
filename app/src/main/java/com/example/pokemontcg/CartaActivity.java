@@ -4,7 +4,9 @@ import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -46,6 +48,7 @@ public class CartaActivity extends Activity {
     private TextView numeroCarta;
     private TextView rarezaCarta;
     private TextView precioCarta;
+    private TextView fuentePrecioCarta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +136,7 @@ public class CartaActivity extends Activity {
                     }
 
                     precioCarta = findViewById(R.id.precioCarta);
+                    fuentePrecioCarta = findViewById(R.id.fuentePrecioCarta);
 
                     if(!dataCarta.isNull("tcgplayer")){
                         JSONObject jsonObjectTcgPlayer = new JSONObject(dataCarta.getString("tcgplayer"));
@@ -162,11 +166,20 @@ public class CartaActivity extends Activity {
 
                         if(!objectPrecios.isNull("normal") || !objectPrecios.isNull("holofoil") || !objectPrecios.isNull("reverseHolofoil")){
                             precioCarta.setText(precioNormal + precioHolo + precioReverseHolo);
+                            String link = fuentePrecioCarta.getText().toString();
+                            fuentePrecioCarta.setText(fuentePrecioCarta.getText().toString());
+
+                            TextView textViewLink = (TextView) findViewById(R.id.fuentePrecioCarta);
+
+                            textViewLink.setMovementMethod(LinkMovementMethod.getInstance());
+                            textViewLink.setLinkTextColor(Color.BLUE);
                         }else{
                             precioCarta.setText("-");
+                            fuentePrecioCarta.setText("-");
                         }
                     }else{
                         precioCarta.setText("-");
+                        fuentePrecioCarta.setText("-");
                     }
 
 

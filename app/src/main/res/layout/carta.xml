@@ -401,6 +401,45 @@
                     android:textColor="?android:textColorPrimary"
                     android:textSize="15sp"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal"
+                tools:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:text="Fuente:"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textAlignment="center"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/fuentePrecioCarta"
+                    android:text="@string/precios"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textAlignment="center"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
