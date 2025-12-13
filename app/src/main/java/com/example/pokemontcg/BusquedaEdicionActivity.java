@@ -25,13 +25,18 @@ import com.android.volley.toolbox.Volley;
 import com.example.pokemontcg.adapter.EdicionAdapter;
 import com.example.pokemontcg.adapter.PokemonAdapter;
 import com.example.pokemontcg.adapter.TipoAdapter;
+import com.example.pokemontcg.model.Edicion;
 import com.example.pokemontcg.utils.Utils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BusquedaEdicionActivity extends Activity {
     private ListView listaEdiciones;
@@ -53,18 +58,15 @@ public class BusquedaEdicionActivity extends Activity {
     }
 
     private void getDataEdicion() {
-        String url = "https://api.pokemontcg.io/v2/sets";
+        String url = "https://api.tcgdex.net/v2/en/sets";
 
         mRequestQueue = Volley.newRequestQueue(this);
         mStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = new JSONArray(jsonObject.getString("data"));
-
+                    JSONArray jsonArray = new JSONArray(response);
                     ArrayList<String> arrayEdiciones = new ArrayList<>();
-
                         for (int i = 0; i < jsonArray.length(); i++) {
                             try {
                                 arrayEdiciones.add(jsonArray.getString(i));
@@ -72,7 +74,6 @@ public class BusquedaEdicionActivity extends Activity {
                                 e.printStackTrace();
                             }
                         }
-
 
                     EdicionAdapter edicionAdapter = new EdicionAdapter(BusquedaEdicionActivity.this, arrayEdiciones);
                     listaEdiciones.setAdapter(edicionAdapter);

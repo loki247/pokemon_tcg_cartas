@@ -49,10 +49,10 @@ public class EdicionAdapter extends BaseAdapter {
             TextView nombreEdicion = view.findViewById(R.id.nombre_edicion);
             nombreEdicion.setText(edicion.getString("name"));
 
-            JSONObject urlObject = new JSONObject(edicion.getString("images"));
+            //JSONObject urlObject = new JSONObject(edicion.getString("logo"));
 
-            String urlImg = urlObject.getString("logo");
-
+            String urlImg = edicion.getString("logo") + ".png";
+            System.out.println(urlImg);
             ImageView imgEdicion = view.findViewById(R.id.img_edicion);
             Picasso.get().load(urlImg).into(imgEdicion);
 
