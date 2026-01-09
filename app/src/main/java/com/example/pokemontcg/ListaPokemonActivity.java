@@ -86,13 +86,16 @@ public class ListaPokemonActivity extends Activity {
                         ArrayList<Card> cards = new ArrayList<>();
 
                         for (int i = 0; i < cardsJsonArray.length(); i++){
-                            Card card = new Card();
-                            card.setId(cardsJsonArray.getJSONObject(i).getString("id"));
-                            card.setImage(cardsJsonArray.getJSONObject(i).getString("image"));
-                            card.setLocalId(cardsJsonArray.getJSONObject(i).getString("localId"));
-                            card.setName(cardsJsonArray.getJSONObject(i).getString("name"));
+                            if(cardsJsonArray.getJSONObject(i).has("image")){
+                                Card card = new Card();
+                                card.setId(cardsJsonArray.getJSONObject(i).getString("id"));
+                                card.setImage(cardsJsonArray.getJSONObject(i).getString("image"));
+                                card.setLocalId(cardsJsonArray.getJSONObject(i).getString("localId"));
+                                card.setName(cardsJsonArray.getJSONObject(i).getString("name"));
 
-                            cards.add(card);
+                                cards.add(card);
+                            }
+
                         }
 
                         setContent.setCards(cards);
