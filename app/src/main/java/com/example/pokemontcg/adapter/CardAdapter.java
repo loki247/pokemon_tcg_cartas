@@ -1,7 +1,6 @@
 package com.example.pokemontcg.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,35 +8,30 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.example.pokemontcg.model.Pokemon;
 import com.example.pokemontcg.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
+
+import com.example.pokemontcg.model.tcg.Card;
 import com.squareup.picasso.Picasso;
 
-public class PokemonAdapter extends BaseAdapter{
+public class CardAdapter extends BaseAdapter{
     private Context context;
-    private ArrayList<String> listaPokemon;
+    private ArrayList<Card> cards;
 
-    public PokemonAdapter(Context context, ArrayList<String> listaPokemon) {
+    public CardAdapter(Context context, ArrayList<Card> cards) {
         this.context = context;
-        this.listaPokemon = listaPokemon;
+        this.cards = cards;
     }
 
     @Override
     public int getCount() {
-        return listaPokemon.size();
+        return cards.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return listaPokemon.get(i);
+        return cards.get(i);
     }
 
     @Override
@@ -48,20 +42,17 @@ public class PokemonAdapter extends BaseAdapter{
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         try {
-            JSONObject pokemon = new JSONObject(listaPokemon.get(i));
+            Card card = cards.get(i);
             view = LayoutInflater.from(context).inflate(R.layout.pokemon_item, null);
 
             TextView nombrePokemon = view.findViewById(R.id.nombre_pokemon);
-            nombrePokemon.setText(pokemon.getString("name"));
+            nombrePokemon.setText(card.getName());
 
-            JSONObject urlObject = new JSONObject(pokemon.getString("images"));
-
-            String urlImg = urlObject.getString("small");
-
+            String urlImg = card.getImage() + "/high.png";
             ImageView imgCarta = view.findViewById(R.id.img_carta);
             Picasso.get().load(urlImg).into(imgCarta);
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return view;

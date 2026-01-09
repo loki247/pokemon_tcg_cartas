@@ -9,18 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pokemontcg.R;
+import com.example.pokemontcg.model.tcg.Set;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class EdicionAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<String> listaEdiciones;
+    private ArrayList<Set> listaEdiciones;
 
-    public EdicionAdapter(Context context, ArrayList<String> listaEdiciones) {
+    public EdicionAdapter(Context context, ArrayList<Set> listaEdiciones) {
         this.context = context;
         this.listaEdiciones = listaEdiciones;
     }
@@ -43,20 +41,16 @@ public class EdicionAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         try {
-            JSONObject edicion = new JSONObject(listaEdiciones.get(i));
+            Set set = listaEdiciones.get(i);
             view = LayoutInflater.from(context).inflate(R.layout.edicion_item, null);
 
             TextView nombreEdicion = view.findViewById(R.id.nombre_edicion);
-            nombreEdicion.setText(edicion.getString("name"));
+            nombreEdicion.setText(set.getName());
 
-            //JSONObject urlObject = new JSONObject(edicion.getString("logo"));
-
-            String urlImg = edicion.getString("logo") + ".png";
-            System.out.println(urlImg);
+            String urlImg = set.getLogo() + ".png";
             ImageView imgEdicion = view.findViewById(R.id.img_edicion);
             Picasso.get().load(urlImg).into(imgEdicion);
-
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return view;

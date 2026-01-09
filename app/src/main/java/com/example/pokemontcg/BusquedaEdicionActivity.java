@@ -12,31 +12,20 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pokemontcg.adapter.EdicionAdapter;
-import com.example.pokemontcg.adapter.PokemonAdapter;
-import com.example.pokemontcg.adapter.TipoAdapter;
-import com.example.pokemontcg.model.Edicion;
-import com.example.pokemontcg.utils.Utils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.example.pokemontcg.model.tcg.CardCount;
+import com.example.pokemontcg.model.tcg.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 public class BusquedaEdicionActivity extends Activity {
     private ListView listaEdiciones;
@@ -66,16 +55,29 @@ public class BusquedaEdicionActivity extends Activity {
             public void onResponse(String response) {
                 try {
                     JSONArray jsonArray = new JSONArray(response);
-                    ArrayList<String> arrayEdiciones = new ArrayList<>();
+                    ArrayList<Set> sets = new ArrayList<>();
+
+                    if (jsonArray != null) {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             try {
-                                arrayEdiciones.add(jsonArray.getString(i));
+                                Set set = new Set();
+                                set.setId(jsonArray.getJSONObject(i).getString("id"));
+                                set.setName(jsonArray.getJSONObject(i).getString("name"));
+                                set.setLogo(jsonArray.getJSONObject(i).getString("logo"));
+
+                                CardCount cardCount = new CardCount();
+                                cardCount.setTotal(jsonArray.getJSONObject(i).getJSONObject("cardCount").getInt("total"));
+                                cardCount.setOfficial(jsonArray.getJSONObject(i).getJSONObject("cardCount").getInt("official"));
+
+                                set.setCardCount(cardCount);
+                                sets.add(set);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
+                    }
 
-                    EdicionAdapter edicionAdapter = new EdicionAdapter(BusquedaEdicionActivity.this, arrayEdiciones);
+                    EdicionAdapter edicionAdapter = new EdicionAdapter(BusquedaEdicionActivity.this, sets);
                     listaEdiciones.setAdapter(edicionAdapter);
 
                     listaEdiciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -83,10 +85,10 @@ public class BusquedaEdicionActivity extends Activity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             try {
                                 Intent intent = new Intent(BusquedaEdicionActivity.this, ListaPokemonActivity.class);
-                                intent.putExtra("valor", jsonArray.getJSONObject(position).getString("id"));
-                                intent.putExtra("tipoBusqueda", "set.id");
+                                intent.putExtra("valor", sets.get(position).getId());
+                                intent.putExtra("tipoBusqueda", "id");
                                 startActivity(intent);
-                            } catch (JSONException e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -103,10 +105,6 @@ public class BusquedaEdicionActivity extends Activity {
                 Log.i(TAG, "Error :" + error.toString());
             }
         });
-
-        //int socketTimeout = 30000;//30 seconds - change to what you want
-        //RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        //mJsonRequest.setRetryPolicy(policy);
 
         mRequestQueue.add(mStringRequest);
     }
