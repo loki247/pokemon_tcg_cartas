@@ -58,12 +58,16 @@ public class BusquedaEdicionActivity extends Activity {
                     ArrayList<Set> sets = new ArrayList<>();
 
                     if (jsonArray != null) {
+
                         for (int i = 0; i < jsonArray.length(); i++) {
                             try {
+                                if(jsonArray.getJSONObject(i).getString("id").equalsIgnoreCase("exu")){
+                                    System.out.println(jsonArray.getJSONObject(i));
+                                }
                                 Set set = new Set();
                                 set.setId(jsonArray.getJSONObject(i).getString("id"));
                                 set.setName(jsonArray.getJSONObject(i).getString("name"));
-                                set.setLogo(jsonArray.getJSONObject(i).getString("logo"));
+                                set.setLogo(jsonArray.getJSONObject(i).has("logo") ? jsonArray.getJSONObject(i).getString("logo") : null);
 
                                 CardCount cardCount = new CardCount();
                                 cardCount.setTotal(jsonArray.getJSONObject(i).getJSONObject("cardCount").getInt("total"));
