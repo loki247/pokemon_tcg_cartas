@@ -1,4 +1,4 @@
-package com.example.pokemontcg.model;
+package com.example.pokemontcg.model.tcg;
 
 import java.io.Serializable;
 import java.util.ArrayList;

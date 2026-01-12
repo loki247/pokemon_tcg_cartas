@@ -1,8 +1,6 @@
-package com.example.pokemontcg.model;
+package com.example.pokemontcg.model.tcg;
 
-import java.io.Serializable;
-
-public class Pokemon implements Serializable {
+public class Serie {
     private String id;
     private String name;
 

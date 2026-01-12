@@ -25,19 +25,31 @@
         </activity>
 
         <activity
-            android:name=".ListaPokemonActivity"
+            android:name=".ListaCartasActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
-            android:name=".CartaActivity"
+            android:name=".PokemonActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".ItemActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".BusquedaTipoActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".BusquedaEdicionActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
         </activity>
