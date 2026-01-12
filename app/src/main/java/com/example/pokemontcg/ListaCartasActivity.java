@@ -86,17 +86,14 @@ public class ListaCartasActivity extends Activity {
                         JSONArray cardsJsonArray = tipoBusqueda.equalsIgnoreCase("id") ? jsonObject.getJSONArray("cards") : jsonArray;
                         ArrayList<Card> cards = new ArrayList<>();
 
+
                         for (int i = 0; i < cardsJsonArray.length(); i++){
-                            if(cardsJsonArray.getJSONObject(i).has("image")){
-                                Card card = new Card();
-                                card.setId(cardsJsonArray.getJSONObject(i).getString("id"));
-                                card.setImage(cardsJsonArray.getJSONObject(i).getString("image"));
-                                card.setLocalId(cardsJsonArray.getJSONObject(i).getString("localId"));
-                                card.setName(cardsJsonArray.getJSONObject(i).getString("name"));
-
-                                cards.add(card);
-                            }
-
+                            Card card = new Card();
+                            card.setId(cardsJsonArray.getJSONObject(i).getString("id"));
+                            card.setImage(cardsJsonArray.getJSONObject(i).has("image") ? cardsJsonArray.getJSONObject(i).getString("image") : null);
+                            card.setLocalId(cardsJsonArray.getJSONObject(i).getString("localId"));
+                            card.setName(cardsJsonArray.getJSONObject(i).getString("name"));
+                            cards.add(card);
                         }
 
                         setContent.setCards(cards);

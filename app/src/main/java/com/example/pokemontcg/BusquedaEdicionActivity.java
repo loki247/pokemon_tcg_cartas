@@ -58,23 +58,21 @@ public class BusquedaEdicionActivity extends Activity {
                     ArrayList<Set> sets = new ArrayList<>();
 
                     if (jsonArray != null) {
-
                         for (int i = 0; i < jsonArray.length(); i++) {
                             try {
-                                if(jsonArray.getJSONObject(i).getString("id").equalsIgnoreCase("exu")){
-                                    System.out.println(jsonArray.getJSONObject(i));
+                                if(!jsonArray.getJSONObject(i).getString("id").equalsIgnoreCase("sp")){
+                                    Set set = new Set();
+                                    set.setId(jsonArray.getJSONObject(i).getString("id"));
+                                    set.setName(jsonArray.getJSONObject(i).getString("name"));
+                                    set.setLogo(jsonArray.getJSONObject(i).has("logo") ? jsonArray.getJSONObject(i).getString("logo") : null);
+
+                                    CardCount cardCount = new CardCount();
+                                    cardCount.setTotal(jsonArray.getJSONObject(i).getJSONObject("cardCount").getInt("total"));
+                                    cardCount.setOfficial(jsonArray.getJSONObject(i).getJSONObject("cardCount").getInt("official"));
+
+                                    set.setCardCount(cardCount);
+                                    sets.add(set);
                                 }
-                                Set set = new Set();
-                                set.setId(jsonArray.getJSONObject(i).getString("id"));
-                                set.setName(jsonArray.getJSONObject(i).getString("name"));
-                                set.setLogo(jsonArray.getJSONObject(i).has("logo") ? jsonArray.getJSONObject(i).getString("logo") : null);
-
-                                CardCount cardCount = new CardCount();
-                                cardCount.setTotal(jsonArray.getJSONObject(i).getJSONObject("cardCount").getInt("total"));
-                                cardCount.setOfficial(jsonArray.getJSONObject(i).getJSONObject("cardCount").getInt("official"));
-
-                                set.setCardCount(cardCount);
-                                sets.add(set);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
