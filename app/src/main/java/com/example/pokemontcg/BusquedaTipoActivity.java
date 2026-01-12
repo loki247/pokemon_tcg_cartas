@@ -26,7 +26,7 @@ public class BusquedaTipoActivity extends Activity {
         listaTipos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(BusquedaTipoActivity.this, ListaPokemonActivity.class);
+                Intent intent = new Intent(BusquedaTipoActivity.this, ListaCartasActivity.class);
                 intent.putExtra("valor", new Utils().getListadoTiposIng()[position].toLowerCase());
                 intent.putExtra("tipoBusqueda", "types");
                 startActivity(intent);

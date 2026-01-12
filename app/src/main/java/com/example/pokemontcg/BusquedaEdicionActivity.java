@@ -84,7 +84,7 @@ public class BusquedaEdicionActivity extends Activity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             try {
-                                Intent intent = new Intent(BusquedaEdicionActivity.this, ListaPokemonActivity.class);
+                                Intent intent = new Intent(BusquedaEdicionActivity.this, ListaCartasActivity.class);
                                 intent.putExtra("valor", sets.get(position).getId());
                                 intent.putExtra("tipoBusqueda", "id");
                                 startActivity(intent);

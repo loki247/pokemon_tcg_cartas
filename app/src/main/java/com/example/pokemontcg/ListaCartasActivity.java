@@ -27,18 +27,19 @@ import static android.content.ContentValues.TAG;
 
 import java.util.ArrayList;
 
-public class ListaPokemonActivity extends Activity {
+public class ListaCartasActivity extends Activity {
     private ListView listaPokemon;
     private CardAdapter cardAdapter;
     private ProgressBar progressBar;
 
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
+    private StringRequest mStringRequest2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.lista_pokemon);
+        setContentView(R.layout.lista_cartas);
 
         String valor = getIntent().getStringExtra("valor");
         String tipoBusqueda = getIntent().getStringExtra("tipoBusqueda");
@@ -102,23 +103,38 @@ public class ListaPokemonActivity extends Activity {
                     }
 
                     if (setContent != null) {
-                        cardAdapter = new CardAdapter(ListaPokemonActivity.this, setContent.getCards());
+                        cardAdapter = new CardAdapter(ListaCartasActivity.this, setContent.getCards());
                         listaPokemon.setAdapter(cardAdapter);
 
                         listaPokemon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                try {
-                                    Intent intent = new Intent(ListaPokemonActivity.this, CartaActivity.class);
-                                    intent.putExtra("id", setContent.getCards().get(position).getId());
-                                    startActivity(intent);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                                String urlCarta = "https://api.tcgdex.net/v2/en/cards/" + setContent.getCards().get(position).getId();
+                                mStringRequest2 = new StringRequest(Request.Method.GET, urlCarta, new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        try {
+                                            JSONObject jsonCarta = new JSONObject(response);
+
+                                            Intent intent = new Intent(ListaCartasActivity.this, jsonCarta.getString("category").equals("Pokemon") ? PokemonActivity.class : ItemActivity.class);
+                                            intent.putExtra("id", setContent.getCards().get(position).getId());
+                                            startActivity(intent);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Log.i(TAG, "Error :" + error.toString());
+                                    }
+                                });
+
+                                mRequestQueue.add(mStringRequest2);
                             }
                         });
                     }else{
-                        Intent intent = new Intent(ListaPokemonActivity.this, MainActivity.class);
+                        Intent intent = new Intent(ListaCartasActivity.this, MainActivity.class);
                         intent.putExtra("sinResultados", "No se encontraron resultados para este Pokémon");
                         startActivity(intent);
                     }

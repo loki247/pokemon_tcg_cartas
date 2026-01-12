@@ -5,8 +5,11 @@ import static android.content.ContentValues.TAG;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.widget.TextViewCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,7 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartaActivity extends Activity {
+public class ItemActivity extends Activity {
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
     private String urlApi = "https://api.tcgdex.net/v2/en/cards/";
@@ -34,20 +37,18 @@ public class CartaActivity extends Activity {
     private TextView tituloNombre;
     private ImageView imgCarta;
     private TextView ilustrador;
-    private TextView hpCarta;
-    private TextView faseCarta;
-    private TextView tipoCarta;
-    private TextView preEvolucionCarta;
-    private TextView evolucionCarta;
-    private ImageView edicionCarta;
+    private TextView categoriaCarta;
+    private ImageView edicionLogo;
+    private TextView edicion;
     private TextView numeroCarta;
     private TextView rarezaCarta;
-    private TextView precioCarta;
-    private TextView fuentePrecioCarta;
+    private TextView efectoLabel;
+    private TextView efectoCarta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.carta);
+        setContentView(R.layout.item);
         getDataPokemon(getIntent().getStringExtra("id"));
     }
 
@@ -59,31 +60,37 @@ public class CartaActivity extends Activity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     Card card = new Card();
+                    card.setCategory(jsonObject.getString("category"));
                     card.setName(jsonObject.getString("name"));
                     card.setImage(jsonObject.getString("image") + "/high.webp");
-                    card.setIllustrator(jsonObject.getString("illustrator"));
-                    card.setHp(Integer.parseInt(jsonObject.getString("hp")));
+                    card.setIllustrator(jsonObject.has("illustrator") ? jsonObject.getString("illustrator") : null);
+                    card.setHp(jsonObject.has("hp") ? Integer.parseInt(jsonObject.getString("hp")) : null);
                     card.setStage(jsonObject.has("stage") ? jsonObject.getString("stage") : null);
+                    card.setEffect(jsonObject.has("effect") ? jsonObject.getString("effect") : null);
 
-                    List<String> tipos = new ArrayList<>();
-                    JSONArray jsonArrayTypes = new JSONArray(jsonObject.getString("types"));
+                    if(jsonObject.has("types")){
+                        List<String> tipos = new ArrayList<>();
+                        JSONArray jsonArrayTypes = new JSONArray(jsonObject.getString("types"));
 
-                    for(int i = 0; i < jsonArrayTypes.length(); i++){
-                        tipos.add(jsonArrayTypes.get(i).toString());
+                        for(int i = 0; i < jsonArrayTypes.length(); i++){
+                            tipos.add(jsonArrayTypes.get(i).toString());
+                        }
+
+                        card.setTypes(tipos);
                     }
 
-                    card.setTypes(tipos);
                     card.setEvolveFrom(jsonObject.has("evolveFrom") ? jsonObject.getString("evolveFrom") : null);
                     card.setRarity(jsonObject.getString("rarity"));
                     card.setLocalId(jsonObject.getString("localId"));
 
-                    Set set = new Set();
                     CardCount cardCount = new CardCount();
                     cardCount.setOfficial(Integer.parseInt(jsonObject.getJSONObject("set").getJSONObject("cardCount").getString("official")));
                     cardCount.setTotal(Integer.parseInt(jsonObject.getJSONObject("set").getJSONObject("cardCount").getString("total")));
 
+                    Set set = new Set();
+                    set.setName(jsonObject.getJSONObject("set").has("name") ? jsonObject.getJSONObject("set").getString("name") :  null);
+                    set.setLogo(jsonObject.getJSONObject("set").has("logo") ? jsonObject.getJSONObject("set").getString("logo") + ".png" : null);
                     set.setCardCount(cardCount);
-
                     card.setSet(set);
 
                     tituloNombre = findViewById(R.id.tituloNombre);
@@ -92,31 +99,33 @@ public class CartaActivity extends Activity {
                     imgCarta = findViewById(R.id.imgCarta);
                     Picasso.get().load(card.getImage()).into(imgCarta);
 
+                    edicionLogo = findViewById(R.id.edicionLogo);
+                    Picasso.get().load(set.getLogo()).into(edicionLogo);
+
+                    edicion = findViewById(R.id.edicion);
+                    edicion.setText(card.getSet().getName());
+
                     ilustrador = findViewById(R.id.ilustrador);
                     ilustrador.setText(card.getIllustrator());
 
-                    hpCarta = findViewById(R.id.hpCarta);
-                    hpCarta.setText(card.getHp().toString());
-
-                    faseCarta = findViewById(R.id.faseCarta);
-                    faseCarta.setText(card.getStage());
-
-                    tipoCarta = findViewById(R.id.tipoCarta);
-                    tipoCarta.setText(card.getTypes().get(0));
-
-                    preEvolucionCarta = findViewById(R.id.preevolucionCarta);
-                    preEvolucionCarta.setText(card.getEvolveFrom());
-
-                    rarezaCarta = findViewById(R.id.rarezaCarta);
-                    rarezaCarta.setText(card.getRarity());
+                    categoriaCarta = findViewById(R.id.categoriaCarta);
+                    categoriaCarta.setText(card.getCategory());
 
                     numeroCarta = findViewById(R.id.numeroCarta);
                     numeroCarta.setText(card.getLocalId() + "/" + card.getSet().getCardCount().getOfficial().toString());
 
-                    precioCarta = findViewById(R.id.precioCarta);
-                    fuentePrecioCarta = findViewById(R.id.fuentePrecioCarta);
+                    rarezaCarta = findViewById(R.id.rarezaCarta);
+                    rarezaCarta.setText(card.getRarity());
 
-
+                    efectoLabel = findViewById(R.id.efectoLabel);
+                    efectoCarta = findViewById(R.id.efectoCarta);
+                    if(card.getEffect() != null){
+                        efectoCarta.setText(card.getEffect());
+                        TextViewCompat.setAutoSizeTextTypeWithDefaults(efectoCarta, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+                    }else{
+                        efectoLabel.setVisibility(TextView.INVISIBLE);
+                        efectoCarta.setVisibility(TextView.INVISIBLE);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

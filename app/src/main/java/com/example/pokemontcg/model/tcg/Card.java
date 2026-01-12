@@ -14,12 +14,15 @@ public class Card implements Serializable {
     private Set set;
     private Variants variants;
     private List<VariantsDetailed> variantsDetailed;
+    private String effect;
+    private String energyType;
     private List<Integer> dexId;
     private Integer hp;
     private List<String> types;
     private String evolveFrom;
     private String description;
     private String stage;
+    private List<Ability> abilities;
     private List<Attack> attacks;
     private List<Weakness> weaknesses;
     private Integer retreat;
@@ -106,6 +109,22 @@ public class Card implements Serializable {
         this.variantsDetailed = variantsDetailed;
     }
 
+    public String getEffect() {
+        return effect;
+    }
+
+    public void setEffect(String effect) {
+        this.effect = effect;
+    }
+
+    public String getEnergyType() {
+        return energyType;
+    }
+
+    public void setEnergyType(String energyType) {
+        this.energyType = energyType;
+    }
+
     public List<Integer> getDexId() {
         return dexId;
     }
@@ -152,6 +171,14 @@ public class Card implements Serializable {
 
     public void setStage(String stage) {
         this.stage = stage;
+    }
+
+    public List<Ability> getAbilities() {
+        return abilities;
+    }
+
+    public void setAbilities(List<Ability> abilities) {
+        this.abilities = abilities;
     }
 
     public List<Attack> getAttacks() {

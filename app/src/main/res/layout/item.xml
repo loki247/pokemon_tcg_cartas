@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".CartaActivity">
+    tools:context=".ItemActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -63,7 +63,7 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/edicionCarta"
+                    android:id="@+id/edicionLogo"
                     android:layout_width="0dp"
                     android:layout_height="80dp"
                     android:layout_marginTop="5dp"
@@ -78,18 +78,41 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView3"
-                    android:text="Ilustrador:"
+                    android:id="@+id/edicion"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
                     android:maxLines="2"
+                    android:textAlignment="center"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ilustradorLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="Ilustrador:"
                     android:textAlignment="center"
                     android:textColor="?android:textColorPrimary"
                     android:textSize="15sp"
@@ -99,7 +122,7 @@
                     android:id="@+id/ilustrador"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -112,30 +135,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView5"
-                    android:text="HP:"
+                    android:id="@+id/categoriaLabel"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
                     android:maxLines="2"
+                    android:text="Categoría:"
                     android:textAlignment="center"
                     android:textColor="?android:textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/hpCarta"
+                    android:id="@+id/categoriaCarta"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -148,125 +171,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:text="Fase:"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:textAlignment="center"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/faseCarta"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:textAlignment="center"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:text="Tipo:"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:textAlignment="center"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tipoCarta"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:textAlignment="center"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:text="Pre-evolución:"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:textAlignment="center"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/preevolucionCarta"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:textAlignment="center"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal"
                 tools:layout_marginTop="10dp">
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/numeroLabel"
                     android:text="Número:"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -280,7 +195,7 @@
                     android:id="@+id/numeroCarta"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -293,17 +208,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal"
                 tools:layout_marginTop="10dp">
 
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/rarezaLabel"
                     android:text="Rareza:"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -317,7 +232,7 @@
                     android:id="@+id/rarezaCarta"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -328,80 +243,50 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal"
                 tools:layout_marginTop="10dp">
 
                 <TextView
-                    android:id="@+id/textView13"
-                    android:text="Precio:"
+                    android:id="@+id/efectoLabel"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
                     android:maxLines="2"
+                    android:text="Efecto:"
                     android:textAlignment="center"
                     android:textColor="?android:textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/precioCarta"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    app:autoSizeTextType="uniform"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:ellipsize="end"
-                    android:maxLines="5"
-                    android:textAlignment="center"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="15sp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal"
                 tools:layout_marginTop="10dp">
 
                 <TextView
-                    android:id="@+id/textView14"
-                    android:text="Fuente:"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:ellipsize="end"
-                    android:maxLines="2"
+                    android:id="@+id/efectoCarta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="16sp"
+                    android:autoSizeMaxTextSize="22sp"
+                    android:autoSizeStepGranularity="1sp"
                     android:textAlignment="center"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/fuentePrecioCarta"
-                    android:text="@string/precios"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:textAlignment="center"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="15sp"
-                    />
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:textColor="?android:textColorPrimary" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
