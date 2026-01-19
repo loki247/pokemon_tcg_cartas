@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import com.example.pokemontcg.helper.SQLHelper;
 import com.example.pokemontcg.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SQLHelper dbHelper = new SQLHelper(this);
+        dbHelper.getReadableDatabase();
+
         setContentView(R.layout.activity_main);
 
         if (getIntent().getExtras() != null) {
