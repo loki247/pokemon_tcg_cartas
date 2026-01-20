@@ -143,8 +143,6 @@ public class PokemonActivity extends Activity {
         habilidadCarta = findViewById(R.id.habilidadCarta);
         textoHabilidad = findViewById(R.id.textoHabilidad);
 
-        System.out.println(card.getAbilities());
-
         if(card.getAbilities() != null && !card.getAbilities().isEmpty()){
             habilidadCarta.setText(card.getAbilities().get(0).getName());
             textoHabilidad.setText(card.getAbilities().get(0).getEffect());

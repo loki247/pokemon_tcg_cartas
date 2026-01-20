@@ -91,6 +91,7 @@ public class CardHelper {
 
                 card.setAbilities(getAbilities(card.getId()));
                 card.setTypes(getTypes(card.getId()));
+                System.out.println(cursor.getString(cursor.getColumnIndexOrThrow("evolve_from")));
             }
         } finally {
             if (cursor != null) cursor.close();

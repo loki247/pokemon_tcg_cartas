@@ -85,7 +85,7 @@ public class SetHelper {
             if (cursor.moveToFirst()) {
                 cardCount.setTotal(cursor.getInt(cursor.getColumnIndexOrThrow("total")));
                 cardCount.setOfficial(cursor.getInt(cursor.getColumnIndexOrThrow("official")));
-                cardCount.setFirstEd(cursor.getInt(cursor.getColumnIndexOrThrow("firsted")));
+                cardCount.setFirstEd(cursor.getInt(cursor.getColumnIndexOrThrow("first_ed")));
                 cardCount.setHolo(cursor.getInt(cursor.getColumnIndexOrThrow("holo")));
                 cardCount.setNormal(cursor.getInt(cursor.getColumnIndexOrThrow("normal")));
                 cardCount.setReverse(cursor.getInt(cursor.getColumnIndexOrThrow("reverse")));
