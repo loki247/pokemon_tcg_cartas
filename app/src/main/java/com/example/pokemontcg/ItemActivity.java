@@ -76,7 +76,7 @@ public class ItemActivity extends Activity {
                             tipos.add(jsonArrayTypes.get(i).toString());
                         }
 
-                        card.setTypes(tipos);
+                        //card.setTypes(tipos);
                     }
 
                     card.setEvolveFrom(jsonObject.has("evolveFrom") ? jsonObject.getString("evolveFrom") : null);

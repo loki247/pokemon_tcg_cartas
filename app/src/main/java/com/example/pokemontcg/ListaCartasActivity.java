@@ -1,5 +1,6 @@
 package com.example.pokemontcg;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +17,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pokemontcg.adapter.CardAdapter;
+import com.example.pokemontcg.adapter.EdicionAdapter;
+import com.example.pokemontcg.helper.CardHelper;
+import com.example.pokemontcg.helper.SetHelper;
 import com.example.pokemontcg.model.tcg.Card;
+import com.example.pokemontcg.model.tcg.Set;
 import com.example.pokemontcg.model.tcg.SetContent;
 
 import org.json.JSONArray;
@@ -26,9 +31,10 @@ import org.json.JSONObject;
 import static android.content.ContentValues.TAG;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListaCartasActivity extends Activity {
-    private ListView listaPokemon;
+    private ListView listaCartas;
     private CardAdapter cardAdapter;
     private ProgressBar progressBar;
 
@@ -36,21 +42,22 @@ public class ListaCartasActivity extends Activity {
     private StringRequest mStringRequest;
     private StringRequest mStringRequest2;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_cartas);
 
-        String valor = getIntent().getStringExtra("valor");
+        Integer valor = getIntent().getIntExtra("valor", 0);
         String tipoBusqueda = getIntent().getStringExtra("tipoBusqueda");
 
-        listaPokemon = findViewById(R.id.listaEdiciones);
+        listaCartas = findViewById(R.id.listaCartas);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-        getDataPokemon(valor, tipoBusqueda);
+        getCards(valor, tipoBusqueda);
     }
 
-    private void getDataPokemon(String valor, String tipoBusqueda) {
+    private void getCards(Integer valor, String tipoBusqueda) {
         String url = tipoBusqueda.equalsIgnoreCase("id") ?  "https://api.tcgdex.net/v2/en/sets/" + valor : "https://api.tcgdex.net/v2/en/cards?name=" + valor;
 
         /*if(valor.equalsIgnoreCase("Mime Jr.")){
@@ -73,81 +80,27 @@ public class ListaCartasActivity extends Activity {
             url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":nidoran&q=nationalPokedexNumbers:32&orderBy=number";
         }*/
 
-        mRequestQueue = Volley.newRequestQueue(this);
-        mStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        CardHelper cardHelper = new CardHelper(this);
+
+        List<Card> cards = cardHelper.getCards(valor);
+        ArrayList<Card> listaFinal = new ArrayList<>();
+
+        for (Card card : cards) {
+            listaFinal.add(card);
+        }
+
+        CardAdapter adapter = new CardAdapter(this, listaFinal);
+        listaCartas.setAdapter(adapter);
+
+        listaCartas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = tipoBusqueda.equalsIgnoreCase("id") ? new JSONObject(response) : null;
-                    JSONArray jsonArray = tipoBusqueda.equalsIgnoreCase("name") ? new JSONArray(response) : null;
-                    SetContent setContent = new SetContent();
-
-                    if (jsonObject != null || jsonArray != null) {
-                        JSONArray cardsJsonArray = tipoBusqueda.equalsIgnoreCase("id") ? jsonObject.getJSONArray("cards") : jsonArray;
-                        ArrayList<Card> cards = new ArrayList<>();
-
-
-                        for (int i = 0; i < cardsJsonArray.length(); i++){
-                            Card card = new Card();
-                            card.setId(cardsJsonArray.getJSONObject(i).getString("id"));
-                            card.setImage(cardsJsonArray.getJSONObject(i).has("image") ? cardsJsonArray.getJSONObject(i).getString("image") : null);
-                            card.setLocalId(cardsJsonArray.getJSONObject(i).getString("localId"));
-                            card.setName(cardsJsonArray.getJSONObject(i).getString("name"));
-                            cards.add(card);
-                        }
-
-                        setContent.setCards(cards);
-                    }
-
-                    if (setContent != null) {
-                        cardAdapter = new CardAdapter(ListaCartasActivity.this, setContent.getCards());
-                        listaPokemon.setAdapter(cardAdapter);
-
-                        listaPokemon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                String urlCarta = "https://api.tcgdex.net/v2/en/cards/" + setContent.getCards().get(position).getId();
-                                mStringRequest2 = new StringRequest(Request.Method.GET, urlCarta, new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-                                        try {
-                                            JSONObject jsonCarta = new JSONObject(response);
-
-                                            Intent intent = new Intent(ListaCartasActivity.this, jsonCarta.getString("category").equals("Pokemon") ? PokemonActivity.class : ItemActivity.class);
-                                            intent.putExtra("id", setContent.getCards().get(position).getId());
-                                            startActivity(intent);
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }, new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        Log.i(TAG, "Error :" + error.toString());
-                                    }
-                                });
-
-                                mRequestQueue.add(mStringRequest2);
-                            }
-                        });
-                    }else{
-                        Intent intent = new Intent(ListaCartasActivity.this, MainActivity.class);
-                        intent.putExtra("sinResultados", "No se encontraron resultados para este Pokémon");
-                        startActivity(intent);
-                    }
-
-                    progressBar.setVisibility(View.GONE);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "Error :" + error.toString());
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ListaCartasActivity.this, listaFinal.get(position).getCategory().equals("Pokemon") ? PokemonActivity.class : ItemActivity.class);
+                intent.putExtra("id", listaFinal.get(position).getId());
+                startActivity(intent);
             }
         });
 
-        mRequestQueue.add(mStringRequest);
+        progressBar.setVisibility(View.GONE);
     }
 }

@@ -31,10 +31,10 @@ public class BusquedaEdicionActivity extends Activity {
         progressBar = findViewById(R.id.progressBar3);
 
         progressBar.setVisibility(View.VISIBLE);
-        cargarSetsDesdeDB();
+        getSets();
     }
 
-    private void cargarSetsDesdeDB() {
+    private void getSets() {
         SetHelper setHelper = new SetHelper(this);
 
         List<Set> sets = setHelper.getSets();
@@ -54,7 +54,7 @@ public class BusquedaEdicionActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(BusquedaEdicionActivity.this, ListaCartasActivity.class);
-                intent.putExtra("valor", listaFinal.get(position).getIdSet());
+                intent.putExtra("valor", listaFinal.get(position).getId());
                 intent.putExtra("tipoBusqueda", "id");
                 startActivity(intent);
             }

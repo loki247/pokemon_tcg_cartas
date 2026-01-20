@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.pokemontcg.model.tcg.CardCount;
 import com.example.pokemontcg.model.tcg.Set;
 
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ public class SetHelper {
         dbHelper = new SQLHelper(context);
     }
 
-    // 🔍 Obtener todos los sets
     public List<Set> getSets() {
         List<Set> sets = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -47,11 +47,10 @@ public class SetHelper {
         return sets;
     }
 
-    // 🔎 Obtener un set por ID
     public Set getById(int id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = null;
-        Set set = null;
+        Set set = new Set();
 
         String sql = "SELECT id, id_set, name, logo, symbol, id_serie FROM set_ WHERE id = ?";
 
@@ -59,7 +58,6 @@ public class SetHelper {
             cursor = db.rawQuery(sql, new String[]{String.valueOf(id)});
 
             if (cursor.moveToFirst()) {
-                set = new Set();
                 set.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
                 set.setIdSet(cursor.getString(cursor.getColumnIndexOrThrow("id_set")));
                 set.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
@@ -72,5 +70,31 @@ public class SetHelper {
         }
 
         return set;
+    }
+
+    public CardCount getCardCount(int id) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = null;
+        CardCount cardCount = new CardCount();
+
+        String sql = "SELECT * FROM card_count WHERE id_set = ?";
+
+        try {
+            cursor = db.rawQuery(sql, new String[]{String.valueOf(id)});
+
+            if (cursor.moveToFirst()) {
+                cardCount.setTotal(cursor.getInt(cursor.getColumnIndexOrThrow("total")));
+                cardCount.setOfficial(cursor.getInt(cursor.getColumnIndexOrThrow("official")));
+                cardCount.setFirstEd(cursor.getInt(cursor.getColumnIndexOrThrow("firsted")));
+                cardCount.setHolo(cursor.getInt(cursor.getColumnIndexOrThrow("holo")));
+                cardCount.setNormal(cursor.getInt(cursor.getColumnIndexOrThrow("normal")));
+                cardCount.setReverse(cursor.getInt(cursor.getColumnIndexOrThrow("reverse")));
+            }
+        } finally {
+            if (cursor != null) cursor.close();
+            db.close();
+        }
+
+        return cardCount;
     }
 }

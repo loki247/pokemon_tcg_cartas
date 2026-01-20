@@ -270,23 +270,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:orientation="horizontal"
-                tools:layout_marginTop="10dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/efectoCarta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="16sp"
-                    android:autoSizeMaxTextSize="22sp"
-                    android:autoSizeStepGranularity="1sp"
                     android:textAlignment="center"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
-                    android:textColor="?android:textColorPrimary" />
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="16sp"
+                    android:lineSpacingExtra="4dp"/>
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

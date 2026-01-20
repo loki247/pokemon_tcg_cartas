@@ -14,10 +14,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pokemontcg.helper.CardHelper;
 import com.example.pokemontcg.model.tcg.Ability;
 import com.example.pokemontcg.model.tcg.Card;
 import com.example.pokemontcg.model.tcg.CardCount;
 import com.example.pokemontcg.model.tcg.Set;
+import com.example.pokemontcg.model.tcg.Tipo;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -50,128 +52,106 @@ public class PokemonActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pokemon);
-        getDataPokemon(getIntent().getStringExtra("id"));
+        getDataPokemon(getIntent().getIntExtra("id", 0));
     }
 
-    private void getDataPokemon(String idCarta) {
-        mRequestQueue = Volley.newRequestQueue(this);
-        mStringRequest = new StringRequest(Request.Method.GET, urlApi + idCarta, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    Card card = new Card();
-                    card.setCategory(jsonObject.getString("category"));
-                    card.setName(jsonObject.getString("name"));
-                    card.setImage(jsonObject.getString("image") + "/high.webp");
-                    card.setIllustrator(jsonObject.has("illustrator") ? jsonObject.getString("illustrator") : null);
-                    card.setHp(jsonObject.has("hp") ? Integer.parseInt(jsonObject.getString("hp")) : null);
-                    card.setStage(jsonObject.has("stage") ? jsonObject.getString("stage") : null);
+    private void getDataPokemon(Integer idCarta) {
+        CardHelper cardHelper = new CardHelper(this);
+        Card card = cardHelper.getById(idCarta);
 
-                    if(jsonObject.has("types")){
-                        List<String> tipos = new ArrayList<>();
-                        JSONArray jsonArrayTypes = new JSONArray(jsonObject.getString("types"));
+        /*if(jsonObject.has("types")){
+            List<String> tipos = new ArrayList<>();
+            JSONArray jsonArrayTypes = new JSONArray(jsonObject.getString("types"));
 
-                        for(int i = 0; i < jsonArrayTypes.length(); i++){
-                            tipos.add(jsonArrayTypes.get(i).toString());
-                        }
-
-                        card.setTypes(tipos);
-                    }
-
-                    card.setEvolveFrom(jsonObject.has("evolveFrom") ? jsonObject.getString("evolveFrom") : null);
-                    card.setRarity(jsonObject.getString("rarity"));
-
-                    card.setLocalId(jsonObject.getString("localId"));
-
-                    if(jsonObject.has("abilities")){
-                        List<Ability> abilities = new ArrayList<>();
-                        JSONArray jsonArrayAbilities = new JSONArray(jsonObject.getString("abilities"));
-                        for(int i = 0; i < jsonArrayAbilities.length(); i++){
-                            Ability ability = new Ability();
-                            ability.setType(jsonArrayAbilities.getJSONObject(i).getString("type"));
-                            ability.setName(jsonArrayAbilities.getJSONObject(i).getString("name"));
-                            ability.setEffect(jsonArrayAbilities.getJSONObject(i).getString("effect"));
-                            abilities.add(ability);
-                        }
-
-                        card.setAbilities(abilities);
-                    }
-
-                    CardCount cardCount = new CardCount();
-                    cardCount.setOfficial(Integer.parseInt(jsonObject.getJSONObject("set").getJSONObject("cardCount").getString("official")));
-                    cardCount.setTotal(Integer.parseInt(jsonObject.getJSONObject("set").getJSONObject("cardCount").getString("total")));
-
-                    Set set = new Set();
-                    set.setName(jsonObject.getJSONObject("set").has("name") ? jsonObject.getJSONObject("set").getString("name") :  null);
-                    set.setLogo(jsonObject.getJSONObject("set").has("logo") ? jsonObject.getJSONObject("set").getString("logo") + ".png" : null);
-                    set.setCardCount(cardCount);
-                    card.setSet(set);
-
-                    tituloNombre = findViewById(R.id.tituloNombre);
-                    tituloNombre.setText(card.getName());
-
-                    imgCarta = findViewById(R.id.imgCarta);
-                    Picasso.get().load(card.getImage()).into(imgCarta);
-
-                    edicionLogo = findViewById(R.id.edicionLogo);
-                    Picasso.get().load(set.getLogo()).into(edicionLogo);
-
-                    edicion = findViewById(R.id.edicion);
-                    edicion.setText(card.getSet().getName());
-
-                    ilustrador = findViewById(R.id.ilustrador);
-                    ilustrador.setText(card.getIllustrator());
-
-                    hpCarta = findViewById(R.id.hpCarta);
-                    hpCarta.setText(card.getHp().toString());
-
-                    faseCarta = findViewById(R.id.faseCarta);
-                    faseCarta.setText(card.getStage());
-
-                    habilidadCarta = findViewById(R.id.habilidadCarta);
-
-                    preEvolucionCarta = findViewById(R.id.preevolucionCarta);
-                    preEvolucionCarta.setText(card.getEvolveFrom());
-
-                    tipoCarta = findViewById(R.id.tipoCarta);
-
-                    if(jsonObject.has("types")){
-                        tipoCarta.setText(card.getTypes().get(0));
-                    }else{
-                        tipoCarta.setVisibility(TextView.INVISIBLE);
-                    }
-
-                    rarezaCarta = findViewById(R.id.rarezaCarta);
-                    rarezaCarta.setText(card.getRarity());
-
-                    numeroCarta = findViewById(R.id.numeroCarta);
-                    numeroCarta.setText(card.getLocalId() + "/" + card.getSet().getCardCount().getOfficial().toString());
-
-                    habilidadLabel = findViewById(R.id.habilidadLabel);
-                    habilidadCarta = findViewById(R.id.habilidadCarta);
-                    textoHabilidad = findViewById(R.id.textoHabilidad);
-
-                    if(jsonObject.has("abilities")){
-                        habilidadCarta.setText(card.getAbilities().get(0).getName());
-                        textoHabilidad.setText(card.getAbilities().get(0).getEffect());
-                    }else{
-                        habilidadLabel.setVisibility(TextView.INVISIBLE);
-                        habilidadCarta.setVisibility(TextView.INVISIBLE);
-                        textoHabilidad.setVisibility(TextView.INVISIBLE);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            for(int i = 0; i < jsonArrayTypes.length(); i++){
+                tipos.add(jsonArrayTypes.get(i).toString());
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "Error :" + error.toString());
-            }
-        });
 
-        mRequestQueue.add(mStringRequest);
+            card.setTypes(tipos);
+        }
+
+        card.setEvolveFrom(jsonObject.has("evolveFrom") ? jsonObject.getString("evolveFrom") : null);
+        card.setRarity(jsonObject.getString("rarity"));
+
+        card.setLocalId(jsonObject.getString("localId"));
+
+        if(jsonObject.has("abilities")){
+            List<Ability> abilities = new ArrayList<>();
+            JSONArray jsonArrayAbilities = new JSONArray(jsonObject.getString("abilities"));
+            for(int i = 0; i < jsonArrayAbilities.length(); i++){
+                Ability ability = new Ability();
+                ability.setType(jsonArrayAbilities.getJSONObject(i).getString("type"));
+                ability.setName(jsonArrayAbilities.getJSONObject(i).getString("name"));
+                ability.setEffect(jsonArrayAbilities.getJSONObject(i).getString("effect"));
+                abilities.add(ability);
+            }
+
+            card.setAbilities(abilities);
+        }
+
+        CardCount cardCount = new CardCount();
+        cardCount.setOfficial(Integer.parseInt(jsonObject.getJSONObject("set").getJSONObject("cardCount").getString("official")));
+        cardCount.setTotal(Integer.parseInt(jsonObject.getJSONObject("set").getJSONObject("cardCount").getString("total")));
+
+        Set set = new Set();
+        set.setName(jsonObject.getJSONObject("set").has("name") ? jsonObject.getJSONObject("set").getString("name") :  null);
+        set.setLogo(jsonObject.getJSONObject("set").has("logo") ? jsonObject.getJSONObject("set").getString("logo") + ".png" : null);
+        set.setCardCount(cardCount);
+        card.setSet(set);*/
+
+        tituloNombre = findViewById(R.id.tituloNombre);
+        tituloNombre.setText(card.getName());
+
+        imgCarta = findViewById(R.id.imgCarta);
+        Picasso.get().load(card.getImage()).into(imgCarta);
+
+        edicionLogo = findViewById(R.id.edicionLogo);
+        Picasso.get().load(card.getSet().getLogo() + ".png").into(edicionLogo);
+
+        edicion = findViewById(R.id.edicion);
+        edicion.setText(card.getSet().getName());
+
+        ilustrador = findViewById(R.id.ilustrador);
+        ilustrador.setText(card.getIllustrator());
+
+        hpCarta = findViewById(R.id.hpCarta);
+        hpCarta.setText(card.getHp().toString());
+
+        faseCarta = findViewById(R.id.faseCarta);
+        faseCarta.setText(card.getStage());
+
+        habilidadCarta = findViewById(R.id.habilidadCarta);
+
+        preEvolucionCarta = findViewById(R.id.preevolucionCarta);
+        preEvolucionCarta.setText(card.getEvolveFrom());
+
+        tipoCarta = findViewById(R.id.tipoCarta);
+
+        if(card.getTypes() != null && !card.getTypes().isEmpty()){
+            tipoCarta.setText(String.join(", ", card.getTypes()));
+        }else{
+            tipoCarta.setVisibility(TextView.INVISIBLE);
+        }
+
+        rarezaCarta = findViewById(R.id.rarezaCarta);
+        rarezaCarta.setText(card.getRarity());
+
+        numeroCarta = findViewById(R.id.numeroCarta);
+        numeroCarta.setText(card.getLocalId() + "/" + card.getSet().getCardCount().getOfficial().toString());
+
+        habilidadLabel = findViewById(R.id.habilidadLabel);
+        habilidadCarta = findViewById(R.id.habilidadCarta);
+        textoHabilidad = findViewById(R.id.textoHabilidad);
+
+        System.out.println(card.getAbilities());
+
+        if(card.getAbilities() != null && !card.getAbilities().isEmpty()){
+            habilidadCarta.setText(card.getAbilities().get(0).getName());
+            textoHabilidad.setText(card.getAbilities().get(0).getEffect());
+        }else{
+            habilidadLabel.setVisibility(TextView.INVISIBLE);
+            habilidadCarta.setVisibility(TextView.INVISIBLE);
+            textoHabilidad.setVisibility(TextView.INVISIBLE);
+        }
     }
 }
