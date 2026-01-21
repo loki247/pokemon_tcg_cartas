@@ -6,17 +6,13 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.pokemontcg.helper.SQLHelper;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView nombrePokemon;
-    private Button btnBuscar;
-
+    private AutoCompleteTextView nombrePokemon;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +32,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        nombrePokemon = findViewById(R.id.nombrePokemon);
-        btnBuscar = findViewById(R.id.btnBuscar);
+        nombrePokemon = (AutoCompleteTextView) findViewById(R.id.nombrePokemon);
     }
 
     public void ListaPokemonActivity(View view) {
