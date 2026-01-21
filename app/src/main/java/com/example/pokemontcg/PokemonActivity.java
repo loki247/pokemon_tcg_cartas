@@ -28,6 +28,7 @@ public class PokemonActivity extends Activity {
     private TextView habilidadLabel;
     private TextView habilidadCarta;
     private TextView textoHabilidad;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,8 @@ public class PokemonActivity extends Activity {
         getDataPokemon(getIntent().getStringExtra("id"));
 
         imgCarta.setOnClickListener(v -> mostrarZoomCarta(imgCarta));
+
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
     }
 
     private void getDataPokemon(String idCarta) {
