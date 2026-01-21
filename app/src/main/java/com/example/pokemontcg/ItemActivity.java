@@ -34,6 +34,7 @@ public class ItemActivity extends Activity {
         getDataPokemon(getIntent().getStringExtra("id"));
 
         imgCarta.setOnClickListener(v -> mostrarZoomCarta(imgCarta));
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
     }
 
     private void getDataPokemon(String idCarta) {
@@ -84,7 +85,6 @@ public class ItemActivity extends Activity {
         ImageView imgZoom = dialog.findViewById(R.id.imgZoom);
         imgZoom.setImageDrawable(imgCarta.getDrawable());
 
-        // Animación entrada
         imgZoom.startAnimation(AnimationUtils.loadAnimation(this, R.anim.zoom_in_fade));
 
         imgZoom.setOnClickListener(v -> {

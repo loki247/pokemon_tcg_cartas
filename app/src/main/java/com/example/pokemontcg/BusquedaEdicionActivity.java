@@ -34,6 +34,8 @@ public class BusquedaEdicionActivity extends Activity {
 
         progressBar.setVisibility(View.VISIBLE);
         getSets();
+
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
     }
 
     private void getSets() {

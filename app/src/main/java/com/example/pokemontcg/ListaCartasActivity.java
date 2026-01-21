@@ -35,12 +35,8 @@ import java.util.List;
 
 public class ListaCartasActivity extends Activity {
     private ListView listaCartas;
-    private CardAdapter cardAdapter;
     private ProgressBar progressBar;
 
-    private RequestQueue mRequestQueue;
-    private StringRequest mStringRequest;
-    private StringRequest mStringRequest2;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -55,31 +51,11 @@ public class ListaCartasActivity extends Activity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
         getCards(valor, tipoBusqueda);
+
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
     }
 
     private void getCards(String valor, String tipoBusqueda) {
-        String url = tipoBusqueda.equalsIgnoreCase("id") ?  "https://api.tcgdex.net/v2/en/sets/" + valor : "https://api.tcgdex.net/v2/en/cards?name=" + valor;
-
-        /*if(valor.equalsIgnoreCase("Mime Jr.")){
-            url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":mime&q=nationalPokedexNumbers:439&orderBy=number";
-        }
-
-        if(valor.equalsIgnoreCase("Mr. Mime")){
-            url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":mime&q=nationalPokedexNumbers:122&orderBy=number";
-        }
-
-        if(valor.equalsIgnoreCase("Mr. Rime")){
-            url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":rime&orderBy=number";
-        }
-
-        if(valor.equalsIgnoreCase("Nidoran♀")){
-            url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":nidoran&q=nationalPokedexNumbers:29&orderBy=number";
-        }
-
-        if(valor.equalsIgnoreCase("Nidoran♂")){
-            url = "https://api.pokemontcg.io/v2/cards?q=" + tipoBusqueda +":nidoran&q=nationalPokedexNumbers:32&orderBy=number";
-        }*/
-
         CardHelper cardHelper = new CardHelper(this);
         System.out.println(tipoBusqueda);
         List<Card> cards = tipoBusqueda.equalsIgnoreCase("id") ?  cardHelper.getCards(valor) : cardHelper.getCardsSearch(valor);
