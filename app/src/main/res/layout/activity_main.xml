@@ -6,19 +6,6 @@
     android:layout_height="wrap_content"
     tools:context=".MainActivity">
 
-    <!-- VERSION APP -->
-    <TextView
-        android:id="@+id/version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_version"
-        android:textSize="12sp"
-        android:textColor="?android:textColorSecondary"
-        android:padding="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- CONTENIDO PRINCIPAL -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -114,6 +101,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="20dp" />
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_version"
+            android:textSize="12sp"
+            android:textColor="?android:textColorSecondary"
+            android:padding="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </LinearLayout>
 
