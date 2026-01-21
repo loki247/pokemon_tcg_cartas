@@ -12,8 +12,10 @@ import android.widget.ProgressBar;
 import com.example.pokemontcg.adapter.EdicionAdapter;
 import com.example.pokemontcg.helper.SetHelper;
 import com.example.pokemontcg.model.tcg.Set;
+import com.example.pokemontcg.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BusquedaEdicionActivity extends Activity {
@@ -36,12 +38,15 @@ public class BusquedaEdicionActivity extends Activity {
 
     private void getSets() {
         SetHelper setHelper = new SetHelper(this);
+        Utils utils = new Utils();
 
         List<Set> sets = setHelper.getSets();
         ArrayList<Set> listaFinal = new ArrayList<>();
 
+        List<String> excludedSets = Arrays.asList(utils.getExludedSets());
+
         for (Set set : sets) {
-            if (!"sp".equalsIgnoreCase(set.getIdSet())) {
+            if (!excludedSets.contains(set.getIdSet())) {
                 listaFinal.add(set);
             }
         }
