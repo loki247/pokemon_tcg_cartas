@@ -1,39 +1,19 @@
 package com.example.pokemontcg;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.pokemontcg.helper.CardHelper;
-import com.example.pokemontcg.model.tcg.Ability;
 import com.example.pokemontcg.model.tcg.Card;
-import com.example.pokemontcg.model.tcg.CardCount;
-import com.example.pokemontcg.model.tcg.Set;
-import com.example.pokemontcg.model.tcg.Tipo;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PokemonActivity extends Activity {
-    private RequestQueue mRequestQueue;
-    private StringRequest mStringRequest;
-    private String urlApi = "https://api.tcgdex.net/v2/en/cards/";
-
     private TextView tituloNombre;
     private ImageView imgCarta;
     private ImageView edicionLogo;
@@ -52,52 +32,14 @@ public class PokemonActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pokemon);
-        getDataPokemon(getIntent().getIntExtra("id", 0));
+        getDataPokemon(getIntent().getStringExtra("id"));
+
+        imgCarta.setOnClickListener(v -> mostrarZoomCarta(imgCarta));
     }
 
-    private void getDataPokemon(Integer idCarta) {
+    private void getDataPokemon(String idCarta) {
         CardHelper cardHelper = new CardHelper(this);
         Card card = cardHelper.getById(idCarta);
-
-        /*if(jsonObject.has("types")){
-            List<String> tipos = new ArrayList<>();
-            JSONArray jsonArrayTypes = new JSONArray(jsonObject.getString("types"));
-
-            for(int i = 0; i < jsonArrayTypes.length(); i++){
-                tipos.add(jsonArrayTypes.get(i).toString());
-            }
-
-            card.setTypes(tipos);
-        }
-
-        card.setEvolveFrom(jsonObject.has("evolveFrom") ? jsonObject.getString("evolveFrom") : null);
-        card.setRarity(jsonObject.getString("rarity"));
-
-        card.setLocalId(jsonObject.getString("localId"));
-
-        if(jsonObject.has("abilities")){
-            List<Ability> abilities = new ArrayList<>();
-            JSONArray jsonArrayAbilities = new JSONArray(jsonObject.getString("abilities"));
-            for(int i = 0; i < jsonArrayAbilities.length(); i++){
-                Ability ability = new Ability();
-                ability.setType(jsonArrayAbilities.getJSONObject(i).getString("type"));
-                ability.setName(jsonArrayAbilities.getJSONObject(i).getString("name"));
-                ability.setEffect(jsonArrayAbilities.getJSONObject(i).getString("effect"));
-                abilities.add(ability);
-            }
-
-            card.setAbilities(abilities);
-        }
-
-        CardCount cardCount = new CardCount();
-        cardCount.setOfficial(Integer.parseInt(jsonObject.getJSONObject("set").getJSONObject("cardCount").getString("official")));
-        cardCount.setTotal(Integer.parseInt(jsonObject.getJSONObject("set").getJSONObject("cardCount").getString("total")));
-
-        Set set = new Set();
-        set.setName(jsonObject.getJSONObject("set").has("name") ? jsonObject.getJSONObject("set").getString("name") :  null);
-        set.setLogo(jsonObject.getJSONObject("set").has("logo") ? jsonObject.getJSONObject("set").getString("logo") + ".png" : null);
-        set.setCardCount(cardCount);
-        card.setSet(set);*/
 
         tituloNombre = findViewById(R.id.tituloNombre);
         tituloNombre.setText(card.getName());
@@ -151,5 +93,34 @@ public class PokemonActivity extends Activity {
             habilidadCarta.setVisibility(TextView.INVISIBLE);
             textoHabilidad.setVisibility(TextView.INVISIBLE);
         }
+    }
+
+    private void mostrarZoomCarta(ImageView imgCarta) {
+        Dialog dialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        dialog.setContentView(R.layout.image_zoom);
+
+        ImageView imgZoom = dialog.findViewById(R.id.imgZoom);
+        imgZoom.setImageDrawable(imgCarta.getDrawable());
+
+        // Animación entrada
+        imgZoom.startAnimation(AnimationUtils.loadAnimation(this, R.anim.zoom_in_fade));
+
+        imgZoom.setOnClickListener(v -> {
+            Animation animOut = AnimationUtils.loadAnimation(this, R.anim.zoom_out_fade);
+            animOut.setAnimationListener(new Animation.AnimationListener() {
+                @Override public void onAnimationStart(Animation animation) {}
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    dialog.dismiss();
+                }
+
+                @Override public void onAnimationRepeat(Animation animation) {}
+            });
+
+            imgZoom.startAnimation(animOut);
+        });
+
+        dialog.show();
     }
 }

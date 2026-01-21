@@ -48,7 +48,7 @@ public class ListaCartasActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_cartas);
 
-        Integer valor = getIntent().getIntExtra("valor", 0);
+        String valor = getIntent().getStringExtra("valor");
         String tipoBusqueda = getIntent().getStringExtra("tipoBusqueda");
 
         listaCartas = findViewById(R.id.listaCartas);
@@ -57,7 +57,7 @@ public class ListaCartasActivity extends Activity {
         getCards(valor, tipoBusqueda);
     }
 
-    private void getCards(Integer valor, String tipoBusqueda) {
+    private void getCards(String valor, String tipoBusqueda) {
         String url = tipoBusqueda.equalsIgnoreCase("id") ?  "https://api.tcgdex.net/v2/en/sets/" + valor : "https://api.tcgdex.net/v2/en/cards?name=" + valor;
 
         /*if(valor.equalsIgnoreCase("Mime Jr.")){
@@ -81,8 +81,8 @@ public class ListaCartasActivity extends Activity {
         }*/
 
         CardHelper cardHelper = new CardHelper(this);
-
-        List<Card> cards = cardHelper.getCards(valor);
+        System.out.println(tipoBusqueda);
+        List<Card> cards = tipoBusqueda.equalsIgnoreCase("id") ?  cardHelper.getCards(valor) : cardHelper.getCardsSearch(valor);
         ArrayList<Card> listaFinal = new ArrayList<>();
 
         for (Card card : cards) {
@@ -95,8 +95,9 @@ public class ListaCartasActivity extends Activity {
         listaCartas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println(listaFinal.get(position).getId());
                 Intent intent = new Intent(ListaCartasActivity.this, listaFinal.get(position).getCategory().equals("Pokemon") ? PokemonActivity.class : ItemActivity.class);
-                intent.putExtra("id", listaFinal.get(position).getId());
+                intent.putExtra("id", listaFinal.get(position).getId().toString());
                 startActivity(intent);
             }
         });

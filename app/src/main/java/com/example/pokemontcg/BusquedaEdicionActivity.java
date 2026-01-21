@@ -40,7 +40,6 @@ public class BusquedaEdicionActivity extends Activity {
         List<Set> sets = setHelper.getSets();
         ArrayList<Set> listaFinal = new ArrayList<>();
 
-        // (opcional) filtrar "sp" como antes
         for (Set set : sets) {
             if (!"sp".equalsIgnoreCase(set.getIdSet())) {
                 listaFinal.add(set);
@@ -54,7 +53,7 @@ public class BusquedaEdicionActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(BusquedaEdicionActivity.this, ListaCartasActivity.class);
-                intent.putExtra("valor", listaFinal.get(position).getId());
+                intent.putExtra("valor", listaFinal.get(position).getId().toString());
                 intent.putExtra("tipoBusqueda", "id");
                 startActivity(intent);
             }

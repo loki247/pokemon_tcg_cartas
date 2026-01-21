@@ -6,15 +6,16 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pokemontcg.helper.SQLHelper;
-import com.example.pokemontcg.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
-    private AutoCompleteTextView nombrePokemon;
+    private TextView nombrePokemon;
+    private Button btnBuscar;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -35,30 +36,25 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        nombrePokemon = (AutoCompleteTextView) findViewById(R.id.nombrePokemon);
-        String[] lista = new Utils().getListadoPokemon();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, lista);
-        nombrePokemon.setThreshold(1);
-        nombrePokemon.setAdapter(adapter);
+        nombrePokemon = findViewById(R.id.nombrePokemon);
+        btnBuscar = findViewById(R.id.btnBuscar);
     }
 
     public void ListaPokemonActivity(View view) {
         String nombre = nombrePokemon.getText().toString();
-        if(!nombre.isEmpty()){
+        if(nombre.isEmpty()){
+            Toast toast = Toast.makeText(this, "Debes ingresar el nombre de un Pokémon", Toast.LENGTH_SHORT);
+            toast.show();
+        }else if(nombre.length() < 3){
+            Toast toast = Toast.makeText(this, "Debes ingresar al menos tres caracteres", Toast.LENGTH_SHORT);
+            toast.show();
+        }else{
             Intent intent = new Intent(this, ListaCartasActivity.class);
             intent.putExtra("valor", nombrePokemon.getText().toString());
             intent.putExtra("tipoBusqueda", "name");
             startActivity(intent);
-        }else{
-            Toast toast = Toast.makeText(this, "Debes ingresar el nombre de un Pokémon", Toast.LENGTH_SHORT);
-            toast.show();
         }
     }
-    public void BusquedaTipoActivity(View view) {
-        Intent intent = new Intent(this, BusquedaTipoActivity.class);
-        startActivity(intent);
-    }
-
     public void BusquedaEdicionActivity(View view) {
         Intent intent = new Intent(this, BusquedaEdicionActivity.class);
         startActivity(intent);

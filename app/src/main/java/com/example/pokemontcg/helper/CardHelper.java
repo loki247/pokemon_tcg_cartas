@@ -23,7 +23,7 @@ public class CardHelper {
         this.context = context;
     }
 
-    public List<Card> getCards(Integer idSet) {
+    public List<Card> getCards(String idSet) {
         List<Card> cards = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
@@ -59,7 +59,42 @@ public class CardHelper {
         return cards;
     }
 
-    public Card getById(int id) {
+    public List<Card> getCardsSearch(String search) {
+        List<Card> cards = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String sql = "SELECT * FROM card WHERE name LIKE lower('%" + search +"%')";
+        Cursor cursor = null;
+
+        try {
+            cursor = db.rawQuery(sql, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    Card card = new Card();
+                    card.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+                    card.setIllustrator(cursor.getString(cursor.getColumnIndexOrThrow("illustrator")));
+                    card.setHp(cursor.getInt(cursor.getColumnIndexOrThrow("hp")));
+                    card.setStage(cursor.getString(cursor.getColumnIndexOrThrow("stage")));
+                    card.setCategory(cursor.getString(cursor.getColumnIndexOrThrow("category")));
+                    card.setEvolveFrom(cursor.getString(cursor.getColumnIndexOrThrow("evolve_from")));
+                    card.setCardId(cursor.getString(cursor.getColumnIndexOrThrow("card_id")));
+                    card.setLocalId(cursor.getString(cursor.getColumnIndexOrThrow("local_id")));
+                    card.setRarity(cursor.getString(cursor.getColumnIndexOrThrow("rarity")));
+                    card.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+                    card.setImage(cursor.getString(cursor.getColumnIndexOrThrow("image")));
+
+                    cards.add(card);
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null) cursor.close();
+            db.close();
+        }
+
+        return cards;
+    }
+
+    public Card getById(String id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = null;
         Card card = new Card();
@@ -71,6 +106,7 @@ public class CardHelper {
 
             if (cursor.moveToFirst()) {
                 card.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+                card.setCategory(cursor.getString(cursor.getColumnIndexOrThrow("category")));
                 card.setIllustrator(cursor.getString(cursor.getColumnIndexOrThrow("illustrator")));
                 card.setHp(cursor.getInt(cursor.getColumnIndexOrThrow("hp")));
                 card.setStage(cursor.getString(cursor.getColumnIndexOrThrow("stage")));
@@ -91,7 +127,6 @@ public class CardHelper {
 
                 card.setAbilities(getAbilities(card.getId()));
                 card.setTypes(getTypes(card.getId()));
-                System.out.println(cursor.getString(cursor.getColumnIndexOrThrow("evolve_from")));
             }
         } finally {
             if (cursor != null) cursor.close();
