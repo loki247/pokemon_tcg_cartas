@@ -5,7 +5,8 @@ import java.util.List;
 
 public class Card implements Serializable {
     private String category;
-    private String id;
+    private Integer id;
+    private String cardId;
     private String illustrator;
     private String image;
     private String localId;
@@ -37,12 +38,20 @@ public class Card implements Serializable {
         this.category = category;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
     }
 
     public String getIllustrator() {

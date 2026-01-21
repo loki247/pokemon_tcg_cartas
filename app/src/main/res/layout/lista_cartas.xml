@@ -21,10 +21,10 @@
             android:layout_gravity="center" />
 
         <ListView
-            android:id="@+id/listaEdiciones"
+            android:id="@+id/listaCartas"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"></ListView>
+            android:scrollbars="vertical" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

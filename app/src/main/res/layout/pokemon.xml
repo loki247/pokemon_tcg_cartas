@@ -392,22 +392,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:orientation="horizontal"
-                tools:layout_marginTop="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textoHabilidad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="16sp"
-                    android:autoSizeMaxTextSize="22sp"
-                    android:autoSizeStepGranularity="1sp"
                     android:textAlignment="center"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
-                    android:textColor="?android:textColorPrimary" />
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="16sp"
+                    android:lineSpacingExtra="4dp"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/overlayZoom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#CC000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/imgZoom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"/>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
