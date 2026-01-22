@@ -28,6 +28,8 @@ public class PokemonActivity extends Activity {
     private TextView habilidadLabel;
     private TextView habilidadCarta;
     private TextView textoHabilidad;
+    private TextView descripcionLabel;
+    private TextView descripcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,16 @@ public class PokemonActivity extends Activity {
             habilidadCarta.setVisibility(TextView.INVISIBLE);
             textoHabilidad.setVisibility(TextView.INVISIBLE);
         }
+
+        descripcionLabel = findViewById(R.id.descripcionLabel);
+        descripcion = findViewById(R.id.descripcion);
+
+        if(card.getDescription() != null){
+            descripcion.setText(card.getDescription());
+        }else{
+            descripcionLabel.setVisibility(TextView.INVISIBLE);
+        }
+
     }
 
     private void mostrarZoomCarta(ImageView imgCarta) {
