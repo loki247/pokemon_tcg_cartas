@@ -93,8 +93,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
@@ -102,7 +102,7 @@
                     android:id="@+id/edicion"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -116,15 +116,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/ilustradorLabel"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -139,7 +139,7 @@
                     android:id="@+id/ilustrador"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -152,8 +152,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -161,7 +161,7 @@
                     android:text="HP:"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -175,7 +175,7 @@
                     android:id="@+id/hpCarta"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -188,8 +188,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -197,7 +197,7 @@
                     android:text="Fase:"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -211,7 +211,7 @@
                     android:id="@+id/faseCarta"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -224,8 +224,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -233,7 +233,7 @@
                     android:text="Tipo:"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -247,7 +247,7 @@
                     android:id="@+id/tipoCarta"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -260,8 +260,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -269,7 +269,7 @@
                     android:text="Pre-evolución:"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -283,7 +283,7 @@
                     android:id="@+id/preevolucionCarta"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -296,8 +296,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal"
                 tools:layout_marginTop="10dp">
 
@@ -306,7 +306,7 @@
                     android:text="Número:"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -320,7 +320,7 @@
                     android:id="@+id/numeroCarta"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -333,8 +333,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal"
                 tools:layout_marginTop="10dp">
 
@@ -343,7 +343,7 @@
                     android:text="Rareza:"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -357,7 +357,7 @@
                     android:id="@+id/rarezaCarta"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -369,8 +369,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal"
                 tools:layout_marginTop="10dp">
 
@@ -379,7 +379,7 @@
                     android:text="Habilidad:"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -393,7 +393,7 @@
                     android:id="@+id/habilidadCarta"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -437,7 +437,6 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:textColor="?android:textColorPrimary"
@@ -459,6 +458,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:layout_marginStart="15dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginEnd="15dp"
                     android:textColor="?android:textColorPrimary"
                     android:textSize="16sp"
