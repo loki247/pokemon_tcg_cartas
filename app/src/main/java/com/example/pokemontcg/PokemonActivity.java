@@ -51,7 +51,7 @@ public class PokemonActivity extends Activity {
         Picasso.get().load(card.getImage()).into(imgCarta);
 
         edicionLogo = findViewById(R.id.edicionLogo);
-        Picasso.get().load(card.getSet().getLogo() + ".png").into(edicionLogo);
+        Picasso.get().load(card.getSet().getLogo()).into(edicionLogo);
 
         edicion = findViewById(R.id.edicion);
         edicion.setText(card.getSet().getName());
@@ -105,7 +105,6 @@ public class PokemonActivity extends Activity {
         ImageView imgZoom = dialog.findViewById(R.id.imgZoom);
         imgZoom.setImageDrawable(imgCarta.getDrawable());
 
-        // Animación entrada
         imgZoom.startAnimation(AnimationUtils.loadAnimation(this, R.anim.zoom_in_fade));
 
         imgZoom.setOnClickListener(v -> {

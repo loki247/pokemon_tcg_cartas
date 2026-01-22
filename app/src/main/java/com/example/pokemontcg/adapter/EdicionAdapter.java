@@ -47,7 +47,7 @@ public class EdicionAdapter extends BaseAdapter {
             TextView nombreEdicion = view.findViewById(R.id.nombre_edicion);
             nombreEdicion.setText(set.getName());
 
-            String urlImg = set.getLogo() + ".png";
+            String urlImg = set.getLogo();
             ImageView imgEdicion = view.findViewById(R.id.img_edicion);
             Picasso.get().load(urlImg).into(imgEdicion);
         } catch (Exception e) {

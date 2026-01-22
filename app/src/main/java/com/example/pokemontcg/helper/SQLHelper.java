@@ -18,13 +18,14 @@ public class SQLHelper extends SQLiteOpenHelper {
     public SQLHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
+        context.deleteDatabase(DATABASE_NAME);
         copiarBaseDesdeAssets();
     }
 
     private void copiarBaseDesdeAssets() {
         File dbFile = context.getDatabasePath(DATABASE_NAME);
 
-        if (dbFile.exists()) return; // 🔥 NO crear DB vacía
+        if (dbFile.exists()) return;
 
         dbFile.getParentFile().mkdirs();
 
@@ -45,11 +46,11 @@ public class SQLHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // NO crear tablas aquí
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Manejo de versiones si es necesario
+
     }
 }
