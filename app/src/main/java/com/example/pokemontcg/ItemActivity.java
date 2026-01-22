@@ -30,7 +30,6 @@ public class ItemActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item);
-        System.out.println(getIntent().getStringExtra("id"));
         getDataPokemon(getIntent().getStringExtra("id"));
 
         imgCarta.setOnClickListener(v -> mostrarZoomCarta(imgCarta));
@@ -49,7 +48,7 @@ public class ItemActivity extends Activity {
 
         if(card.getSet().getLogo() != null){
             edicionLogo = findViewById(R.id.edicionLogo);
-            Picasso.get().load(card.getSet().getLogo() + ".png").into(edicionLogo);
+            Picasso.get().load(card.getSet().getLogo()).into(edicionLogo);
         }
 
         edicion = findViewById(R.id.edicion);

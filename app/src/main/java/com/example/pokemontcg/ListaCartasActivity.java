@@ -57,7 +57,6 @@ public class ListaCartasActivity extends Activity {
 
     private void getCards(String valor, String tipoBusqueda) {
         CardHelper cardHelper = new CardHelper(this);
-        System.out.println(tipoBusqueda);
         List<Card> cards = tipoBusqueda.equalsIgnoreCase("id") ?  cardHelper.getCards(valor) : cardHelper.getCardsSearch(valor);
         ArrayList<Card> listaFinal = new ArrayList<>();
 
@@ -71,7 +70,6 @@ public class ListaCartasActivity extends Activity {
         listaCartas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(listaFinal.get(position).getId());
                 Intent intent = new Intent(ListaCartasActivity.this, listaFinal.get(position).getCategory().equals("Pokemon") ? PokemonActivity.class : ItemActivity.class);
                 intent.putExtra("id", listaFinal.get(position).getId().toString());
                 startActivity(intent);

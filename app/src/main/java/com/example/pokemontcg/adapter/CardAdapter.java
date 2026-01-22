@@ -48,7 +48,7 @@ public class CardAdapter extends BaseAdapter{
             TextView nombrePokemon = view.findViewById(R.id.nombre_pokemon);
             nombrePokemon.setText(card.getName());
 
-            String urlImg = card.getImage() + "/high.png";
+            String urlImg = card.getImage();
             ImageView imgCarta = view.findViewById(R.id.img_carta);
             Picasso.get().load(urlImg).into(imgCarta);
 

@@ -116,7 +116,7 @@ public class CardHelper {
                 card.setLocalId(cursor.getString(cursor.getColumnIndexOrThrow("local_id")));
                 card.setRarity(cursor.getString(cursor.getColumnIndexOrThrow("rarity")));
                 card.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
-                card.setImage(cursor.getString(cursor.getColumnIndexOrThrow("image")) + "/high.png");
+                card.setImage(cursor.getString(cursor.getColumnIndexOrThrow("image")));
 
                 SetHelper setHelper = new SetHelper(context);
                 Set set = setHelper.getById(cursor.getInt(cursor.getColumnIndexOrThrow("id_set")));
