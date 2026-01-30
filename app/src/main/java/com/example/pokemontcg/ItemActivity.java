@@ -72,11 +72,11 @@ public class ItemActivity extends Activity {
         descripcionTxt += "<br>";
         descripcionTxt += "<b>Rareza: </b>" + card.getRarity();
 
-        if(card.getEffect() != null){
+        if(card.getAbilities() != null && !card.getAbilities().isEmpty()){
             descripcionTxt += "<br>";
             descripcionTxt += "<b>Efecto: </b>";
             descripcionTxt += "<br>";
-            descripcionTxt += card.getEffect();
+            descripcionTxt += card.getAbilities().get(0).getEffect();
         }
 
         if(card.getIdTcgPlayer() != null){

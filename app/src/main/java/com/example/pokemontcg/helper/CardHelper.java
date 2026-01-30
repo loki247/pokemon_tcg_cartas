@@ -128,6 +128,7 @@ public class CardHelper {
                 card.setSet(set);
 
                 card.setAbilities(getAbilities(card.getId()));
+                System.out.println(card.getAbilities().get(0).getEffect());
                 card.setTypes(getTypes(card.getId()));
             }
         } finally {
