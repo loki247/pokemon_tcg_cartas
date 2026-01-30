@@ -101,7 +101,6 @@ public class PokemonActivity extends Activity {
 
         descripcion.setText(Html.fromHtml(descripcionTxt, Html.FROM_HTML_MODE_LEGACY));
 
-
         Spannable spannable = new SpannableString(descripcion.getText());
 
         URLSpan[] urls = spannable.getSpans(0, spannable.length(), URLSpan.class);
