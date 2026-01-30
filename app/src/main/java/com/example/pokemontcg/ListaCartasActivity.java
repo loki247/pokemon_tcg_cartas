@@ -4,31 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.pokemontcg.adapter.CardAdapter;
-import com.example.pokemontcg.adapter.EdicionAdapter;
 import com.example.pokemontcg.helper.CardHelper;
-import com.example.pokemontcg.helper.SetHelper;
 import com.example.pokemontcg.model.tcg.Card;
-import com.example.pokemontcg.model.tcg.Set;
-import com.example.pokemontcg.model.tcg.SetContent;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import static android.content.ContentValues.TAG;
 
 import java.util.ArrayList;
 import java.util.List;

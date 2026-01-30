@@ -118,6 +118,7 @@ public class CardHelper {
                 card.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
                 card.setImage(cursor.getString(cursor.getColumnIndexOrThrow("image")));
                 card.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("description")));
+                card.setIdTcgPlayer(cursor.getInt(cursor.getColumnIndexOrThrow("id_tcgplayer")));
 
                 SetHelper setHelper = new SetHelper(context);
                 Set set = setHelper.getById(cursor.getInt(cursor.getColumnIndexOrThrow("id_set")));

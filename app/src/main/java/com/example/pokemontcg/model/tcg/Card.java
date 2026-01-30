@@ -29,6 +29,15 @@ public class Card implements Serializable {
     private Integer retreat;
     private String regulationMark;
     private Legal legal;
+    private Integer idTcgPlayer;
+
+    public Integer getIdTcgPlayer() {
+        return idTcgPlayer;
+    }
+
+    public void setIdTcgPlayer(Integer idTcgPlayer) {
+        this.idTcgPlayer = idTcgPlayer;
+    }
 
     public String getCategory() {
         return category;

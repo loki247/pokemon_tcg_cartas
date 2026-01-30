@@ -2,7 +2,16 @@ package com.example.pokemontcg;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -10,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.pokemontcg.helper.CardHelper;
 import com.example.pokemontcg.model.tcg.Card;
+import com.google.android.material.textview.MaterialTextView;
 import com.squareup.picasso.Picasso;
 
 
@@ -17,19 +27,8 @@ public class PokemonActivity extends Activity {
     private TextView tituloNombre;
     private ImageView imgCarta;
     private ImageView edicionLogo;
-    private TextView ilustrador;
     private TextView edicion;
-    private TextView hpCarta;
-    private TextView faseCarta;
-    private TextView tipoCarta;
-    private TextView preEvolucionCarta;
-    private TextView numeroCarta;
-    private TextView rarezaCarta;
-    private TextView habilidadLabel;
-    private TextView habilidadCarta;
-    private TextView textoHabilidad;
-    private TextView descripcionLabel;
-    private TextView descripcion;
+    private MaterialTextView descripcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,56 +57,74 @@ public class PokemonActivity extends Activity {
         edicion = findViewById(R.id.edicion);
         edicion.setText(card.getSet().getName());
 
-        ilustrador = findViewById(R.id.ilustrador);
-        ilustrador.setText(card.getIllustrator());
-
-        hpCarta = findViewById(R.id.hpCarta);
-        hpCarta.setText(card.getHp().toString());
-
-        faseCarta = findViewById(R.id.faseCarta);
-        faseCarta.setText(card.getStage());
-
-        habilidadCarta = findViewById(R.id.habilidadCarta);
-
-        preEvolucionCarta = findViewById(R.id.preevolucionCarta);
-        preEvolucionCarta.setText(card.getEvolveFrom());
-
-        tipoCarta = findViewById(R.id.tipoCarta);
+        descripcion = findViewById(R.id.descripcion);
+        String descripcionTxt = "<b>Ilustrador: </b>" + card.getIllustrator();
+        descripcionTxt += "<br>";
+        descripcionTxt += "<b>HP: </b>" + card.getHp();
+        descripcionTxt += "<br>";
+        descripcionTxt += "<b>Fase: </b>" + card.getStage();
 
         if(card.getTypes() != null && !card.getTypes().isEmpty()){
-            tipoCarta.setText(String.join(", ", card.getTypes()));
-        }else{
-            tipoCarta.setVisibility(TextView.INVISIBLE);
+            descripcionTxt += "<br>";
+            descripcionTxt += "<b>Tipo: </b>" + String.join(", ", card.getTypes());
         }
 
-        rarezaCarta = findViewById(R.id.rarezaCarta);
-        rarezaCarta.setText(card.getRarity());
+        if(card.getEvolveFrom() != null){
+            descripcionTxt += "<br>";
+            descripcionTxt += "<b>Evoluciona de: </b>" + card.getEvolveFrom();
+        }
 
-        numeroCarta = findViewById(R.id.numeroCarta);
-        numeroCarta.setText(card.getLocalId() + "/" + card.getSet().getCardCount().getOfficial().toString());
+        descripcionTxt += "<br>";
+        descripcionTxt += "<b>Número: </b>" + card.getLocalId() + "/" + card.getSet().getCardCount().getOfficial().toString();
 
-        habilidadLabel = findViewById(R.id.habilidadLabel);
-        habilidadCarta = findViewById(R.id.habilidadCarta);
-        textoHabilidad = findViewById(R.id.textoHabilidad);
+        descripcionTxt += "<br>";
+        descripcionTxt += "<b>Rareza: </b>" + card.getRarity();
 
         if(card.getAbilities() != null && !card.getAbilities().isEmpty()){
-            habilidadCarta.setText(card.getAbilities().get(0).getName());
-            textoHabilidad.setText(card.getAbilities().get(0).getEffect());
-        }else{
-            habilidadLabel.setVisibility(TextView.INVISIBLE);
-            habilidadCarta.setVisibility(TextView.INVISIBLE);
-            textoHabilidad.setVisibility(TextView.INVISIBLE);
+            descripcionTxt += "<br>";
+            descripcionTxt += "<b>Habilidad: </b>" + card.getAbilities().get(0).getName();
+            descripcionTxt += "<br>";
+            descripcionTxt += card.getAbilities().get(0).getEffect();
         }
-
-        descripcionLabel = findViewById(R.id.descripcionLabel);
-        descripcion = findViewById(R.id.descripcion);
 
         if(card.getDescription() != null){
-            descripcion.setText(card.getDescription());
-        }else{
-            descripcionLabel.setVisibility(TextView.INVISIBLE);
+            descripcionTxt += "<br>";
+            descripcionTxt += "<b>Descripción: </b>";
+            descripcionTxt += "<br>";
+            descripcionTxt += card.getDescription();
         }
 
+        if(card.getIdTcgPlayer() != null){
+            descripcionTxt += "<br>";
+            descripcionTxt += "<a href='https://www.tcgplayer.com/product/" + card.getIdTcgPlayer() + "'>Ver en TcgPlayer</a>";
+        }
+
+        descripcion.setText(Html.fromHtml(descripcionTxt, Html.FROM_HTML_MODE_LEGACY));
+
+
+        Spannable spannable = new SpannableString(descripcion.getText());
+
+        URLSpan[] urls = spannable.getSpans(0, spannable.length(), URLSpan.class);
+
+        for (URLSpan span : urls) {
+            int start = spannable.getSpanStart(span);
+            int end = spannable.getSpanEnd(span);
+            String url = span.getURL();
+
+            spannable.removeSpan(span);
+
+            spannable.setSpan(new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    Intent intent = new Intent(widget.getContext(), WebViewActivity.class);
+                    intent.putExtra(WebViewActivity.EXTRA_URL, url);
+                    widget.getContext().startActivity(intent);
+                }
+            }, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        descripcion.setText(spannable);
+        descripcion.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void mostrarZoomCarta(ImageView imgCarta) {
