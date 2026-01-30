@@ -99,6 +99,8 @@ public class PokemonActivity extends Activity {
             descripcionTxt += "<a href='https://www.tcgplayer.com/product/" + card.getIdTcgPlayer() + "'>Ver en TcgPlayer</a>";
         }
 
+        descripcionTxt += "<br>";
+
         descripcion.setText(Html.fromHtml(descripcionTxt, Html.FROM_HTML_MODE_LEGACY));
 
         Spannable spannable = new SpannableString(descripcion.getText());
