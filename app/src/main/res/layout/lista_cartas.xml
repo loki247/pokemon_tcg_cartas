@@ -15,6 +15,7 @@
         android:background="?attr/colorSurface"
         android:padding="16dp">
 
+        <!-- HEADER -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,6 +43,20 @@
                 android:layout_marginStart="12dp"/>
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/inputFiltro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Filtrar cartas..."
+            android:layout_marginTop="12dp"
+            android:padding="12dp"
+            android:inputType="text"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:drawablePadding="8dp"
+            android:background="?attr/colorSurfaceVariant"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOnSurfaceVariant"/>
+
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
@@ -54,7 +69,8 @@
         <ListView
             android:id="@+id/listaCartas"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginTop="8dp"
             android:scrollbars="vertical"
             android:divider="?attr/colorOutline"

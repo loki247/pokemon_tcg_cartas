@@ -13,6 +13,7 @@
         android:orientation="vertical"
         android:padding="12dp">
 
+        <!-- HEADER -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,12 +31,27 @@
                 app:tint="?attr/colorOnSurface"/>
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/inputFiltro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Filtrar ediciones..."
+            android:layout_marginTop="12dp"
+            android:padding="12dp"
+            android:inputType="text"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:drawablePadding="8dp"
+            android:background="?attr/colorSurfaceVariant"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOnSurfaceVariant"/>
+
         <ProgressBar
             android:id="@+id/progressBar3"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="12dp"
             android:visibility="gone"/>
 
         <ListView

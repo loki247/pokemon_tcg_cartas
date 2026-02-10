@@ -36,25 +36,45 @@ public class CardAdapter extends BaseAdapter{
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
+
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        try {
-            Card card = cards.get(i);
-            view = LayoutInflater.from(context).inflate(R.layout.pokemon_item, null);
+    public View getView(int i, View convertView, ViewGroup parent) {
+        ViewHolder holder;
 
-            TextView nombrePokemon = view.findViewById(R.id.nombre_pokemon);
-            nombrePokemon.setText(card.getName());
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context)
+                    .inflate(R.layout.pokemon_item, parent, false);
 
-            String urlImg = card.getImage();
-            ImageView imgCarta = view.findViewById(R.id.img_carta);
-            Picasso.get().load(urlImg).into(imgCarta);
+            holder = new ViewHolder();
+            holder.nombrePokemon = convertView.findViewById(R.id.nombre_pokemon);
+            holder.imgCarta = convertView.findViewById(R.id.img_carta);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
-        return view;
+
+        Card card = cards.get(i);
+
+        holder.nombrePokemon.setText(card.getName());
+
+        Picasso.get().load(card.getImage()).into(holder.imgCarta);
+
+        return convertView;
+    }
+
+
+    public void updateData(ArrayList<Card> nuevasCartas) {
+        this.cards.clear();
+        this.cards.addAll(nuevasCartas);
+        notifyDataSetChanged();
+    }
+
+    static class ViewHolder {
+        TextView nombrePokemon;
+        ImageView imgCarta;
     }
 }
