@@ -122,6 +122,9 @@ public class CardHelper {
 
                 SetHelper setHelper = new SetHelper(context);
                 Set set = setHelper.getById(cursor.getInt(cursor.getColumnIndexOrThrow("id_set")));
+
+                System.out.println(card.getImage());
+
                 CardCount cardCount = setHelper.getCardCount(set.getId());
 
                 set.setCardCount(cardCount);

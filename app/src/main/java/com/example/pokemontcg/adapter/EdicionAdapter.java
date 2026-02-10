@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class EdicionAdapter extends BaseAdapter {
+
     private Context context;
     private ArrayList<Set> listaEdiciones;
 
@@ -35,24 +36,41 @@ public class EdicionAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        try {
-            Set set = listaEdiciones.get(i);
-            view = LayoutInflater.from(context).inflate(R.layout.edicion_item, null);
+    public View getView(int i, View convertView, ViewGroup parent) {
+        ViewHolder holder;
 
-            TextView nombreEdicion = view.findViewById(R.id.nombre_edicion);
-            nombreEdicion.setText(set.getName());
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context)
+                    .inflate(R.layout.edicion_item, parent, false);
 
-            String urlImg = set.getLogo();
-            ImageView imgEdicion = view.findViewById(R.id.img_edicion);
-            Picasso.get().load(urlImg).into(imgEdicion);
-        } catch (Exception e) {
-            e.printStackTrace();
+            holder = new ViewHolder();
+            holder.nombreEdicion = convertView.findViewById(R.id.nombre_edicion);
+            holder.imgEdicion = convertView.findViewById(R.id.img_edicion);
+
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
-        return view;
+
+        Set set = listaEdiciones.get(i);
+        holder.nombreEdicion.setText(set.getName());
+        Picasso.get().load(set.getLogo()).into(holder.imgEdicion);
+
+        return convertView;
+    }
+
+    public void updateData(ArrayList<Set> nuevasEdiciones) {
+        listaEdiciones.clear();
+        listaEdiciones.addAll(nuevasEdiciones);
+        notifyDataSetChanged();
+    }
+
+    static class ViewHolder {
+        TextView nombreEdicion;
+        ImageView imgEdicion;
     }
 }
