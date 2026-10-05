@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SetHelper {
-    private final SQLHelper dbHelper;
+    private final CardSQLHelper dbHelper;
 
     public SetHelper(Context context) {
-        dbHelper = new SQLHelper(context);
+        dbHelper = new CardSQLHelper(context);
     }
 
     public List<Set> getSets() {

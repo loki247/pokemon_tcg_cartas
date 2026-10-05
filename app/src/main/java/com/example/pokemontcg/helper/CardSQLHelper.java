@@ -9,13 +9,13 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class SQLHelper extends SQLiteOpenHelper {
+public class CardSQLHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "pokemon_tcg.db";
     private static final int DATABASE_VERSION = 1;
     private final Context context;
 
-    public SQLHelper(Context context) {
+    public CardSQLHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
         context.deleteDatabase(DATABASE_NAME);

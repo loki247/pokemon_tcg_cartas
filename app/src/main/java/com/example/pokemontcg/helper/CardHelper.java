@@ -3,23 +3,21 @@ package com.example.pokemontcg.helper;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.example.pokemontcg.model.tcg.Ability;
 import com.example.pokemontcg.model.tcg.Card;
 import com.example.pokemontcg.model.tcg.CardCount;
 import com.example.pokemontcg.model.tcg.Set;
-import com.example.pokemontcg.model.tcg.Tipo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CardHelper {
-    private final SQLHelper dbHelper;
+    private final CardSQLHelper dbHelper;
     private final Context context;
 
     public CardHelper(Context context) {
-        dbHelper = new SQLHelper(context);
+        dbHelper = new CardSQLHelper(context);
         this.context = context;
     }
 

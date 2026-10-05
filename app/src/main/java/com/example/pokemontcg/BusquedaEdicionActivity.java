@@ -8,13 +8,18 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.pokemontcg.adapter.EdicionAdapter;
 import com.example.pokemontcg.helper.SetHelper;
 import com.example.pokemontcg.model.tcg.Set;
 import com.example.pokemontcg.utils.Utils;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,6 +57,25 @@ public class BusquedaEdicionActivity extends Activity {
                 filtrar(s.toString());
             }
             @Override public void afterTextChanged(Editable s) {}
+        });
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        ImageButton btnMenu = findViewById(R.id.btnMenu);
+
+        btnMenu.setOnClickListener(v ->
+                drawerLayout.openDrawer(GravityCompat.START)
+        );
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_sets) {
+                startActivity(new Intent(this, BusquedaEdicionActivity.class));
+            }
+
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
         });
     }
 

@@ -7,9 +7,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.pokemontcg.helper.SQLHelper;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.pokemontcg.helper.CardSQLHelper;
+import com.example.pokemontcg.helper.CollectionSQLHelper;
+import com.google.android.material.navigation.NavigationView;
+
 
 public class MainActivity extends AppCompatActivity {
     private AutoCompleteTextView nombrePokemon;
@@ -18,8 +25,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SQLHelper dbHelper = new SQLHelper(this);
-        dbHelper.getReadableDatabase();
+        CardSQLHelper cardSQLHelper = new CardSQLHelper(this);
+        cardSQLHelper.getReadableDatabase();
+
+        CollectionSQLHelper collectionSQLHelper = new CollectionSQLHelper(this);
+        collectionSQLHelper.getReadableDatabase();
 
         setContentView(R.layout.activity_main);
 
@@ -33,6 +43,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         nombrePokemon = (AutoCompleteTextView) findViewById(R.id.nombrePokemon);
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        ImageButton btnMenu = findViewById(R.id.btnMenu);
+
+        btnMenu.setOnClickListener(v ->
+                drawerLayout.openDrawer(GravityCompat.START)
+        );
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_sets) {
+                startActivity(new Intent(this, BusquedaEdicionActivity.class));
+            }
+
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        });
     }
 
     public void ListaPokemonActivity(View view) {
