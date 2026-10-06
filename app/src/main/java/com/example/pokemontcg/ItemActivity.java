@@ -79,6 +79,7 @@ public class ItemActivity extends Activity {
             descripcionTxt += card.getAbilities().get(0).getEffect();
         }
 
+
         if(card.getIdTcgPlayer() != null){
             descripcionTxt += "<br>";
             descripcionTxt += "<a href='https://www.tcgplayer.com/product/" + card.getIdTcgPlayer() + "'>Ver en TcgPlayer</a>";
