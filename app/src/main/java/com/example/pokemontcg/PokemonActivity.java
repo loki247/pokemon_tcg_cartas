@@ -45,6 +45,10 @@ public class PokemonActivity extends Activity {
         CardHelper cardHelper = new CardHelper(this);
         Card card = cardHelper.getById(idCarta);
 
+        if(card.getIdTcgPlayer() == 0){
+            card.setIdTcgPlayer(null);
+        }
+
         tituloNombre = findViewById(R.id.tituloNombre);
         tituloNombre.setText(card.getName());
 
@@ -94,6 +98,7 @@ public class PokemonActivity extends Activity {
             descripcionTxt += card.getDescription();
         }
 
+        System.out.println(card.getIdTcgPlayer());
         if(card.getIdTcgPlayer() != null){
             descripcionTxt += "<br>";
             descripcionTxt += "<a href='https://www.tcgplayer.com/product/" + card.getIdTcgPlayer() + "'>Ver en TcgPlayer</a>";
